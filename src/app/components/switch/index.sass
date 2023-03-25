@@ -1,0 +1,22 @@
+@import '../../stylesheets/variables'
+
+.switch
+    height: 20px
+    width: 60px
+    border-radius: 10px
+    background-color: red
+    cursor: pointer
+    .switch__slider
+        height: 20px
+        width: 20px
+        border-radius: 50%
+        background-color: white
+        position: relative
+        top: 0
+        left: 0
+        transition: 0.4s
+
+.checked
+    background-color: green
+    .switch__slider
+        left: 40px

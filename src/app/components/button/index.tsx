@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import './index.sass';
 
 interface ButtonProps {
-  text: string;
+  text?: string | JSX.Element;
   theme: 'p' | 'd';
   outline?: boolean;
   width?: string;
@@ -10,11 +10,11 @@ interface ButtonProps {
   height?: string;
 }
 
-export default function Button(props: ButtonProps) {
+const Button: React.FC<ButtonProps> = (props) => {
   const style = {
-    '--width': props.width ?? 'auto',
+    '--width': props.width ?? '80px',
     '--padding': props.padding ?? 'auto',
-    '--height': props.height ?? 'auto',
+    '--height': props.height ?? '20px',
   } as CSSProperties;
   return (
     <button
@@ -23,7 +23,15 @@ export default function Button(props: ButtonProps) {
         .filter((p) => p)
         .join(' ')}
     >
-      {props.text}
+      {[
+        props.text ?? (
+          <div
+            className={props.theme === 'p' ? 'btn__text--p' : 'btn__text--d'}
+          ></div>
+        ),
+      ]}
     </button>
   );
-}
+};
+
+export default Button;

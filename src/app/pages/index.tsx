@@ -1,7 +1,15 @@
 import Button from '../components/button';
+import Switch from '../components/switch';
+import Text from '../components/text';
 
 function Index() {
-  return <Button text="drogas" theme="d" outline width="200px" height="65px" />;
+  return (
+    <>
+      <Text text="Hello World" />
+      <Button theme="d" />
+      <Switch />
+    </>
+  );
 }
 
 export default Index;

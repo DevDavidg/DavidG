@@ -1,4 +1,5 @@
 @import '../../stylesheets/variables'
+
 .btn
     border: none
     width: var(--width)
@@ -8,9 +9,22 @@
     transition: 0.2s
     border-radius: $br-2
     font-weight: 600
+    display: flex
+    justify-content: center
+    align-items: center
     &:active
         transform: scale(0.95)
         transition: 0.2s
+    .btn__text--d
+        height: 20%
+        width: 80%
+        background: $color-w
+        border-radius: $br-1
+    .btn__text--p
+        height: 20%
+        width: 80%
+        background: $color-b
+        border-radius: $br-1
 .p
     background: $color-p
     color: $color-b-p
