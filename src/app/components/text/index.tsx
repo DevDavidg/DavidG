@@ -1,7 +1,7 @@
 import './index.sass';
 
 interface TextProps {
-  text: string;
+  text?: string | JSX.Element;
   theme?: 'text-p' | 'text-d' | 'text-default';
   size?: 's' | 'm' | 'l';
   weight?: 'light' | 'regular' | 'bold';
@@ -31,7 +31,15 @@ const Text: React.FC<TextProps> = (props) => {
         props.align ?? 'left',
       ].join(' ')}
     >
-      {props.text}
+      {[
+        props.text ?? (
+          <div
+            className={
+              props.theme === 'text-p' ? 'text__text--p' : 'text__text--d'
+            }
+          ></div>
+        ),
+      ]}
     </p>
   );
 };

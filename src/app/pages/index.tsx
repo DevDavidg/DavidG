@@ -1,13 +1,12 @@
-import Button from '../components/button';
-import Switch from '../components/switch';
-import Text from '../components/text';
+import Container from '../components/Container';
+import Sphere from '../components/Sphere';
 
 function Index() {
   return (
     <>
-      <Text text="Hello World" />
-      <Button theme="d" />
-      <Switch />
+      <Container width="100%" height="100vh">
+        <Sphere height={'200px'} theme={'l'}></Sphere>
+      </Container>
     </>
   );
 }
