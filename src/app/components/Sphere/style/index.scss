@@ -1,5 +1,4 @@
 .main-wrapper {
-  z-index: -1;
   display: flex;
   position: relative;
   transform-style: preserve-3d;
@@ -27,115 +26,96 @@
       .spoke-36 .dot {
         -webkit-animation: pulsate 0.5s infinite 0s alternate both;
         animation: pulsate 0.5s infinite 0s alternate both;
-        background-color: white;
       }
       .spoke-1 .dot,
       .spoke-35 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.055555556s alternate both;
         animation: pulsate 0.5s infinite 0.055555556s alternate both;
-        background-color: rgb(255, 255, 255);
       }
       .spoke-2 .dot,
       .spoke-34 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.1111111s alternate both;
         animation: pulsate 0.5s infinite 0.1111111s alternate both;
-        background-color: rgb(255, 255, 255);
       }
       .spoke-3 .dot,
       .spoke-33 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.16666667s alternate both;
         animation: pulsate 0.5s infinite 0.6666667s alternate both;
-        background-color: rgb(255, 255, 255);
       }
       .spoke-4 .dot,
       .spoke-32 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.22222222s alternate both;
         animation: pulsate 0.5s infinite 0.22222222s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-5 .dot,
       .spoke-31 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.27777778s alternate both;
         animation: pulsate 0.5s infinite 0.27777778s alternate both;
-        background-color: rgb(150, 148, 148);
       }
       .spoke-6 .dot,
       .spoke-30 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.33333333s alternate both;
         animation: pulsate 0.5s infinite 0.33333333s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-7 .dot,
       .spoke-29 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.3888888s alternate both;
         animation: pulsate 0.5s infinite 0.3888888s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-8 .dot,
       .spoke-28 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.4444444s alternate both;
         animation: pulsate 0.5s infinite 0.4444444s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-9 .dot,
       .spoke-27 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.5s alternate both;
         animation: pulsate 0.5s infinite 0.5s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-10 .dot,
       .spoke-26 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.55555556s alternate both;
         animation: pulsate 0.5s infinite 0.55555556s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-11 .dot,
       .spoke-25 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.6111111s alternate both;
         animation: pulsate 0.5s infinite 0.6111111s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-12 .dot,
       .spoke-24 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.6666667s alternate both;
         animation: pulsate 0.5s infinite 0.6666667s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-13 .dot,
       .spoke-23 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.7222222s alternate both;
         animation: pulsate 0.5s infinite 0.7222222s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-14 .dot,
       .spoke-22 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.7777778s alternate both;
         animation: pulsate 0.5s infinite 0.7777778s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-15 .dot,
       .spoke-21 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.8333333s alternate both;
         animation: pulsate 0.5s infinite 0.8333333s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-16 .dot,
       .spoke-20 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.8888889s alternate both;
         animation: pulsate 0.5s infinite 0.8888889s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-17 .dot,
       .spoke-19 .dot {
         -webkit-animation: pulsate 0.5s infinite 0.9444444s alternate both;
         animation: pulsate 0.5s infinite 0.9444444s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke-18 .dot,
       .spoke-20 .dot {
         -webkit-animation: pulsate 0.5s infinite 1s alternate both;
         animation: pulsate 0.5s infinite 1s alternate both;
-        background-color: rgb(209, 209, 209);
       }
       .spoke {
         transform-origin: 0 0;
@@ -257,7 +237,7 @@
   }
 }
 
-.dot {
+.dot.l {
   position: absolute;
   width: 10px;
   height: 10px;
@@ -267,13 +247,34 @@
   top: 100%;
   transform: rotate(90deg);
 }
-.dot::before {
+.dot.d {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #000000;
+  left: -3px;
+  top: 100%;
+  transform: rotate(90deg);
+}
+.dot.d::before {
   content: '';
   position: absolute;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: #fff;
+  left: -3px;
+  top: 100%;
+  transform: matrix(0.1, 0, 0, 10, 0, 0);
+}
+.dot.l::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #000000;
   left: -3px;
   top: 100%;
   transform: matrix(0.1, 0, 0, 10, 0, 0);

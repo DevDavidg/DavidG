@@ -4,7 +4,7 @@ interface ContainerProps {
   children: JSX.Element | JSX.Element[];
   height?: string;
   width?: string;
-  theme?: 'p' | 'd';
+  theme?: 'l' | 'd';
   row?: boolean;
   align?: 'start' | 'center' | 'end';
   justify?: 'start' | 'center' | 'end';

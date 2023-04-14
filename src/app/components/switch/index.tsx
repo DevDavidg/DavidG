@@ -1,6 +1,5 @@
-'use client';
 import './index.sass';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface SwitchProps {
   theme?: 'p' | 'd';
@@ -9,7 +8,7 @@ interface SwitchProps {
 }
 
 const Switch: React.FC<SwitchProps> = (props) => {
-  const [checked, setChecked] = React.useState(props.checked ?? false);
+  const [checked, setChecked] = useState(props.checked ?? false);
   const toggle = () => {
     setChecked(!checked);
     props.onChange?.(!checked);

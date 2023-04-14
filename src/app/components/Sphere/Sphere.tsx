@@ -13,9 +13,7 @@ const Sphere: React.FC<ISphereProps> = (props) => {
     for (let i = 0; i < 36; i++) {
       spokes.push(
         <div className={['spoke', `spoke-${i + 1}`].filter((p) => p).join(' ')}>
-          <div className="dot">
-            <div className="inner-dot"></div>
-          </div>
+          <div className={props.theme === 'l' ? 'dot l' : 'dot d'} />
         </div>
       );
     }
