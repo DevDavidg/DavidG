@@ -11,6 +11,7 @@ interface TextProps {
   width?: string;
   height?: string;
   style?: React.CSSProperties;
+  href?: string;
 }
 
 const Text: React.FC<TextProps> = (props) => {
@@ -31,15 +32,7 @@ const Text: React.FC<TextProps> = (props) => {
         props.align ?? 'left',
       ].join(' ')}
     >
-      {[
-        props.text ?? (
-          <div
-            className={
-              props.theme === 'text-p' ? 'text__text--p' : 'text__text--d'
-            }
-          ></div>
-        ),
-      ]}
+      {[props.href ? <a href={props.href}>{props.text}</a> : props.text]}
     </p>
   );
 };

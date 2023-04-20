@@ -1,5 +1,6 @@
 import './index.sass';
 import React, { useState } from 'react';
+import 'boxicons';
 
 interface SwitchProps {
   theme?: 'p' | 'd';
@@ -20,7 +21,9 @@ const Switch: React.FC<SwitchProps> = (props) => {
         .join(' ')}
       onClick={toggle}
     >
+      <div className="l">L</div>
       <div className="switch__slider"></div>
+      <div className="d">d</div>
     </div>
   );
 };
