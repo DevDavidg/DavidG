@@ -12,7 +12,10 @@ const Sphere: React.FC<ISphereProps> = (props) => {
     const spokes = [];
     for (let i = 0; i < 36; i++) {
       spokes.push(
-        <div className={['spoke', `spoke-${i + 1}`].filter((p) => p).join(' ')}>
+        <div
+          key={`spoke-${i}`} // Agrega una clave única aquí
+          className={['spoke', `spoke-${i + 1}`].filter((p) => p).join(' ')}
+        >
           <div className={props.theme === 'l' ? 'dot l' : 'dot d'} />
         </div>
       );

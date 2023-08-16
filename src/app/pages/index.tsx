@@ -1,14 +1,14 @@
 'use client';
-import { useState } from 'react';
 import Container from '../components/Container';
 import Sphere from '../components/Sphere';
 import Switch from '../components/switch';
 import Text from '../components/Text';
+import { useTheme } from '../context/darkLightModeContext';
 
 function Index() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const handleThemeChange = (isDarkMode: boolean) => {
-    setIsDarkMode(isDarkMode);
+  const { isDarkMode, toggleTheme } = useTheme();
+  const handleThemeChange = () => {
+    toggleTheme();
   };
 
   return (

@@ -32,7 +32,13 @@ const Text: React.FC<TextProps> = (props) => {
         props.align ?? 'left',
       ].join(' ')}
     >
-      {[props.href ? <a href={props.href}>{props.text}</a> : props.text]}
+      {props.href ? (
+        <a key="text-link" href={props.href}>
+          {props.text}
+        </a>
+      ) : (
+        <span key="text-content">{props.text}</span>
+      )}
     </p>
   );
 };
