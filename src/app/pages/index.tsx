@@ -24,10 +24,16 @@ function Index() {
             text={'<>DevDavidG'}
             theme={isDarkMode ? 'text-p' : 'text-d'}
             href="https://www.github.com/DevDavidG"
-          ></Text>
+          />
           <Switch onChange={handleThemeChange} />
         </Container>
-        <Sphere height={'200px'} theme={isDarkMode ? 'd' : 'l'}></Sphere>
+        <Container justify="center" display="flex" width="100%">
+          <Text
+            text={'Hello World!'}
+            theme={isDarkMode ? 'text-p' : 'text-d'}
+          />
+          <Sphere height={'200px'} theme={isDarkMode ? 'd' : 'l'} />
+        </Container>
       </Container>
     </>
   );
