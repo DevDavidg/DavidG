@@ -4,6 +4,7 @@ import Sphere from '../components/Sphere';
 import Switch from '../components/switch';
 import Text from '../components/Text';
 import { useTheme } from '../context/darkLightModeContext';
+import { FadeInContextProvider, AnimationType } from '../context/fadeContext';
 
 function Index() {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -27,12 +28,25 @@ function Index() {
           />
           <Switch onChange={handleThemeChange} />
         </Container>
-        <Container justify="center" display="flex" width="100%">
+        <Container
+          justify="center"
+          display="flex"
+          width="100%"
+          direction="column"
+        >
           <Text
-            text={'Hello World!'}
+            typingText={[
+              'Hola, soy David',
+              'Soy un desarrollador web',
+              'Me gusta el diseño',
+              'Me gusta el desarrollo',
+              'Me gusta el café',
+            ]}
             theme={isDarkMode ? 'text-p' : 'text-d'}
           />
-          <Sphere height={'200px'} theme={isDarkMode ? 'd' : 'l'} />
+          <FadeInContextProvider animation={AnimationType.FadeUp} duration={1}>
+            <Sphere height={'200px'} theme={isDarkMode ? 'd' : 'l'} />
+          </FadeInContextProvider>
         </Container>
       </Container>
     </>

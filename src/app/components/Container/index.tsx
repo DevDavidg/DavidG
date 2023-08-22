@@ -16,6 +16,7 @@ interface ContainerProps {
     | 'space-evenly';
   wrap?: boolean;
   display?: 'flex' | 'block';
+  direction?: 'row' | 'column';
 }
 
 const Container: React.FC<ContainerProps> = (props) => {
@@ -26,6 +27,7 @@ const Container: React.FC<ContainerProps> = (props) => {
     '--padding': props.padding ?? 'auto',
     display: props.display ?? '',
     justifyContent: props.justify ?? '',
+    flexDirection: props.direction ?? '',
   } as React.CSSProperties;
   return (
     <div
