@@ -1,7 +1,7 @@
 import './index.sass';
 
 interface ContainerProps {
-  children: JSX.Element | JSX.Element[];
+  children: React.JSX.Element | React.JSX.Element[];
   height?: string;
   width?: string;
   padding?: string | React.CSSProperties;

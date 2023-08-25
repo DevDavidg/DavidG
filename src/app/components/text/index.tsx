@@ -23,7 +23,8 @@ const Text: React.FC<TextProps> = (props) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [displayedText, setDisplayedText] = useState<
     string | React.JSX.Element
-  >(props.text ?? '');
+  >('');
+  const [showSkeleton, setShowSkeleton] = useState(true);
 
   const handleTypingAnimation = useCallback(
     (currentWord: string) => {
@@ -43,6 +44,8 @@ const Text: React.FC<TextProps> = (props) => {
 
   useEffect(() => {
     if (!props.typingText) {
+      setShowSkeleton(false);
+      setDisplayedText(props.text ?? '');
       return;
     }
 
@@ -67,15 +70,23 @@ const Text: React.FC<TextProps> = (props) => {
         } else {
           handleTypingAnimation(currentWord);
         }
+
+        if (showSkeleton) {
+          setShowSkeleton(false);
+        }
       },
       isDeleting ? deleteInterval : typingInterval
     );
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [
     displayedText,
     isDeleting,
     currentTextIndex,
+    showSkeleton,
+    props.text,
     props.typingText,
     props.typingInterval,
     props.deleteInterval,
@@ -89,6 +100,14 @@ const Text: React.FC<TextProps> = (props) => {
     '--height': props.height ?? 'auto',
   } as React.CSSProperties;
 
+  const renderText = props.href ? (
+    <a key="text-link" href={props.href}>
+      {displayedText}
+    </a>
+  ) : (
+    <span key="text-content">{displayedText}</span>
+  );
+
   return (
     <p
       style={{ ...style, ...props.style }}
@@ -100,12 +119,10 @@ const Text: React.FC<TextProps> = (props) => {
         props.align ?? 'left',
       ].join(' ')}
     >
-      {props.href ? (
-        <a key="text-link" href={props.href}>
-          {displayedText}
-        </a>
+      {showSkeleton ? (
+        <span className="skeleton-animation">{'\u00A0'}</span>
       ) : (
-        <span key="text-content">{displayedText}</span>
+        renderText
       )}
     </p>
   );

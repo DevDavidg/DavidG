@@ -25,6 +25,7 @@ function Index() {
             text={'<>DevDavidG'}
             theme={isDarkMode ? 'text-p' : 'text-d'}
             href="https://www.github.com/DevDavidG"
+            width="120px"
           />
           <Switch onChange={handleThemeChange} />
         </Container>
@@ -42,6 +43,7 @@ function Index() {
               'Me gusta el desarrollo',
               'Me gusta el café',
             ]}
+            width="220px"
             theme={isDarkMode ? 'text-p' : 'text-d'}
           />
           <FadeInContextProvider animation={AnimationType.FadeUp} duration={1}>

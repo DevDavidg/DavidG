@@ -23,9 +23,9 @@ const Switch: React.FC<SwitchProps> = React.memo(function Switch({
 
   return (
     <div className={classNames} onClick={toggle}>
-      <div className="l">L</div>
+      <div className="l"></div>
       <div className="switch__slider"></div>
-      <div className="d">d</div>
+      <div className="d"></div>
     </div>
   );
 });

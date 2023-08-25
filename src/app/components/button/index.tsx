@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import './index.sass';
 
 interface ButtonProps {
-  text?: string | JSX.Element;
+  text?: string | React.JSX.Element;
   theme: 'p' | 'd';
   outline?: boolean;
   width?: string;
