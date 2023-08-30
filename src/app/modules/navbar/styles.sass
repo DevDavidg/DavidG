@@ -1,0 +1,34 @@
+.navbar
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    padding: 1rem
+    transition: all 0.3s ease
+    z-index: 2
+
+    &.scrolling-up
+        transform: translateY(-100%)
+
+    &.scrolled-past-top
+        background-color: transparent
+        border-bottom: none
+        padding: 0.5rem
+
+    .navbar-content
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+
+    &.scrolled-past-top
+        background-color: transparent
+
+    &.scrolled-past-top
+        background-color: transparent
+
+.navbar .l
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+
+.navbar .d
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1)

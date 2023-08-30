@@ -1,5 +1,5 @@
 import './index.sass';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 interface SwitchProps {
   theme?: 'p' | 'd';
@@ -13,6 +13,17 @@ const Switch: React.FC<SwitchProps> = React.memo(function Switch({
   onChange,
 }) {
   const [checked, setChecked] = useState(initialChecked);
+  const [showSkeleton, setShowSkeleton] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowSkeleton(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const toggle = useCallback(() => {
     setChecked((prevChecked) => !prevChecked);
@@ -24,7 +35,11 @@ const Switch: React.FC<SwitchProps> = React.memo(function Switch({
   return (
     <div className={classNames} onClick={toggle}>
       <div className="l"></div>
-      <div className="switch__slider"></div>
+      {showSkeleton ? (
+        <div className="skeleton-animation">{'\u00A0'}</div>
+      ) : (
+        <div className="switch__slider"></div>
+      )}
       <div className="d"></div>
     </div>
   );

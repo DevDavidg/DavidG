@@ -17,6 +17,7 @@ interface ContainerProps {
   wrap?: boolean;
   display?: 'flex' | 'block';
   direction?: 'row' | 'column';
+  className?: string;
 }
 
 const Container: React.FC<ContainerProps> = (props) => {
@@ -32,9 +33,12 @@ const Container: React.FC<ContainerProps> = (props) => {
   return (
     <div
       style={style}
-      className={['container', props.theme ? props.theme : null]
-        .filter((p) => p)
-        .join(' ')}
+      className={
+        `${props.className ?? ''}` +
+        ['container', props.theme ? props.theme : null]
+          .filter((p) => p)
+          .join(' ')
+      }
     >
       {props.children}
     </div>
