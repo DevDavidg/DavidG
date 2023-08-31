@@ -1,0 +1,8 @@
+.rotating-container {
+  transform-origin: top right;
+  overflow: hidden;
+  position: relative;
+
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}

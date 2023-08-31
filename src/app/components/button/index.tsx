@@ -3,7 +3,7 @@ import './index.sass';
 
 interface ButtonProps {
   text?: string | React.JSX.Element;
-  theme: 'p' | 'd';
+  theme: 'd' | 'l';
   outline?: boolean;
   width?: string;
   padding?: string;
@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   const style = {
     '--width': props.width ?? '80px',
     '--padding': props.padding ?? 'auto',
-    '--height': props.height ?? '20px',
+    '--height': props.height ?? 'auto',
   } as CSSProperties;
   return (
     <button
@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = (props) => {
       {[
         props.text ?? (
           <div
-            className={props.theme === 'p' ? 'btn__text--p' : 'btn__text--d'}
+            className={props.theme === 'd' ? 'btn__text--p' : 'btn__text--d'}
           ></div>
         ),
       ]}

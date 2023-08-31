@@ -25,6 +25,7 @@ const Text: React.FC<TextProps> = (props) => {
     string | React.JSX.Element
   >('');
   const [showSkeleton, setShowSkeleton] = useState(true);
+  const [isCursorVisible, setIsCursorVisible] = useState(true);
 
   const handleTypingAnimation = useCallback(
     (currentWord: string) => {
@@ -50,7 +51,7 @@ const Text: React.FC<TextProps> = (props) => {
     }
 
     const typingInterval = props.typingInterval ?? 100;
-    const deleteInterval = props.deleteInterval ?? 70;
+    const deleteInterval = props.deleteInterval ?? 90;
     const typingText = props.typingText || [];
     const currentWord = typingText[currentTextIndex % typingText.length];
 
@@ -86,12 +87,19 @@ const Text: React.FC<TextProps> = (props) => {
     isDeleting,
     currentTextIndex,
     showSkeleton,
-    props.text,
-    props.typingText,
-    props.typingInterval,
-    props.deleteInterval,
+    props,
     handleTypingAnimation,
   ]);
+
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setIsCursorVisible((prevIsCursorVisible) => !prevIsCursorVisible);
+    }, 500);
+
+    return () => {
+      clearInterval(cursorInterval);
+    };
+  }, []);
 
   const style = {
     '--margin': props.margin ?? 'auto',
@@ -105,7 +113,13 @@ const Text: React.FC<TextProps> = (props) => {
       {displayedText}
     </a>
   ) : (
-    <span key="text-content">{displayedText}</span>
+    <span key="text-content">
+      {React.Children.toArray(displayedText).map((char, index) => {
+        const uniqueKey = `char-${index}-${JSON.stringify(char)}`;
+        return <span key={uniqueKey}>{char}</span>;
+      })}
+      {isCursorVisible && <span className="cursor">|</span>}
+    </span>
   );
 
   return (
