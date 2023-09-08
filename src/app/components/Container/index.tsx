@@ -18,6 +18,7 @@ interface ContainerProps {
   display?: 'flex' | 'block';
   direction?: 'row' | 'column';
   className?: string;
+  id?: string;
 }
 
 const Container: React.FC<ContainerProps> = (props) => {
@@ -39,6 +40,7 @@ const Container: React.FC<ContainerProps> = (props) => {
           .filter((p) => p)
           .join(' ')
       }
+      id={props.id}
     >
       {props.children}
     </div>

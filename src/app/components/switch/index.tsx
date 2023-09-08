@@ -18,7 +18,7 @@ const Switch: React.FC<SwitchProps> = React.memo(function Switch({
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowSkeleton(false);
-    }, 1000);
+    }, 400);
 
     return () => {
       clearTimeout(timeout);
