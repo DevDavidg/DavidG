@@ -1,19 +1,23 @@
 import './index.sass';
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTheme } from '../../context/darkLightModeContext';
 
 interface SwitchProps {
   theme?: 'p' | 'd';
-  checked?: boolean;
   onChange?: (checked: boolean) => void;
 }
 
 const Switch: React.FC<SwitchProps> = React.memo(function Switch({
   theme = 'p',
-  checked: initialChecked = false,
   onChange,
 }) {
-  const [checked, setChecked] = useState(initialChecked);
+  const { isDarkMode, toggleTheme } = useTheme();
+  const [checked, setChecked] = useState(isDarkMode);
   const [showSkeleton, setShowSkeleton] = useState(true);
+
+  useEffect(() => {
+    setChecked(isDarkMode); // Actualiza el estado cuando cambie el tema
+  }, [isDarkMode]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -27,8 +31,8 @@ const Switch: React.FC<SwitchProps> = React.memo(function Switch({
 
   const toggle = useCallback(() => {
     setChecked((prevChecked) => !prevChecked);
-    onChange?.(!checked);
-  }, [checked, onChange]);
+    toggleTheme(); // Cambia el tema cuando se activa/desactiva el interruptor
+  }, [toggleTheme]);
 
   const classNames = `switch ${theme} ${checked ? 'checked' : ''}`;
 
