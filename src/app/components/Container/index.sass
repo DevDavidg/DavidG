@@ -1,10 +1,13 @@
+@import '../../stylesheets/variables'
+
 .container
     height: var(--height)
     width: var(--width)
     padding: var(--padding)
+    align-items: var(--align)
     &.l
-        background-color: white
+        background-color: $color-b-p
         transition: 0.4s ease all
     &.d
-        background-color: black
+        background-color: $color-w
         transition: 0.4s ease all

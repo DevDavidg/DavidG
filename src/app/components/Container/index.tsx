@@ -16,9 +16,11 @@ interface ContainerProps {
     | 'space-evenly';
   wrap?: boolean;
   display?: 'flex' | 'block';
-  direction?: 'row' | 'column';
+  direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   className?: string;
   id?: string;
+  gap?: string;
+  styles?: React.CSSProperties;
 }
 
 const Container: React.FC<ContainerProps> = (props) => {
@@ -30,10 +32,11 @@ const Container: React.FC<ContainerProps> = (props) => {
     display: props.display ?? '',
     justifyContent: props.justify ?? '',
     flexDirection: props.direction ?? '',
+    gap: props.gap ?? '',
   } as React.CSSProperties;
   return (
     <div
-      style={style}
+      style={style ?? props.styles}
       className={
         `${props.className ?? ''}` +
         ['container', props.theme ? props.theme : null]

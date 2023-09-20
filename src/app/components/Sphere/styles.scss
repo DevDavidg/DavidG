@@ -1,6 +1,8 @@
+@import '/src/app/stylesheets/variables.sass';
+
 $dot-size: 10px;
-$dot-bg-l: #fff;
-$dot-bg-d: #000;
+$dot-bg-l: $color-b-p;
+$dot-bg-d: $color-w;
 $dot-transform: rotate(90deg);
 $sphere-animation-duration: 15s;
 $dot-animation-duration: 1s;
@@ -83,8 +85,8 @@ $dot-animation-duration: 1s;
               alternate
               both
               infinite
-              $i *
-              0.1s;
+              steps(100);
+            animation-delay: ($i * 0.1s * 2) + 0.1s;
           }
         }
       }
@@ -120,6 +122,7 @@ $dot-animation-duration: 1s;
   top: 100%;
   transform: $dot-transform;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  will-change: transform;
 
   &.l {
     background: $dot-bg-d;

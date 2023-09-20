@@ -1,13 +1,19 @@
 @import '../../stylesheets/variables'
 
-p
+p, span
     width: var(--width)
     height: var(--height)
-    transition: 0.4s ease all
+    transition: 0.2s ease all
     min-height: 30px
+    font-weight: var(--font-weight)
     a
-        color: $color-b
+        color: $color-w
         text-decoration: none
+    &.text-d
+        color: $color-b
+        a
+            color: $color-b
+            text-decoration: none
     &.text-p
         color: $color-w
         a

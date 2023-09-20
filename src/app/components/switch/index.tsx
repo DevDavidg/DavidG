@@ -4,19 +4,21 @@ import { useTheme } from '../../context/darkLightModeContext';
 
 interface SwitchProps {
   theme?: 'p' | 'd';
-  onChange?: (checked: boolean) => void;
+  style?: React.CSSProperties;
+  onChange?: () => void;
 }
 
 const Switch: React.FC<SwitchProps> = React.memo(function Switch({
   theme = 'p',
-  onChange,
+  style,
 }) {
-  const { isDarkMode, toggleTheme } = useTheme();
-  const [checked, setChecked] = useState(isDarkMode);
+  const { isDarkMode, toggleTheme, isRightToLeft, toggleDirection } =
+    useTheme();
+  const [checked, setChecked] = useState(isDarkMode || isRightToLeft);
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
-    setChecked(isDarkMode); // Actualiza el estado cuando cambie el tema
+    setChecked(isDarkMode);
   }, [isDarkMode]);
 
   useEffect(() => {
@@ -31,13 +33,14 @@ const Switch: React.FC<SwitchProps> = React.memo(function Switch({
 
   const toggle = useCallback(() => {
     setChecked((prevChecked) => !prevChecked);
-    toggleTheme(); // Cambia el tema cuando se activa/desactiva el interruptor
-  }, [toggleTheme]);
+    toggleTheme();
+    toggleDirection();
+  }, [toggleTheme, toggleDirection]);
 
   const classNames = `switch ${theme} ${checked ? 'checked' : ''}`;
 
   return (
-    <div className={classNames} onClick={toggle}>
+    <div className={classNames} onClick={toggle} style={style}>
       <div className="l"></div>
       {showSkeleton ? (
         <div className="skeleton-animation">{'\u00A0'}</div>

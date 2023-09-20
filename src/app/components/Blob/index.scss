@@ -1,0 +1,9 @@
+@import '/src/app/stylesheets/variables.sass';
+.blob {
+  height: var(--height);
+  width: var(--width);
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+  filter: blur(70px);
+  will-change: transform;
+}

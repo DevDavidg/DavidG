@@ -1,0 +1,25 @@
+.transition-animationcontainer
+    height: var(--height)
+    width: var(--width)
+    padding: var(--padding)
+    align-items: var(--align)
+    animation: transitionX 0.3s ease forwards
+
+.transition-animation-rightcontainer
+    height: var(--height)
+    width: var(--width)
+    padding: var(--padding)
+    align-items: var(--align)
+    animation: transitionXRight 0.3s ease forwards
+
+@keyframes transitionX
+    0%
+        transform: translateX(-100%)
+    100%
+        transform: translateX(0)
+
+@keyframes transitionXRight
+    0%
+        transform: translateX(100%)
+    100%
+        transform: translateX(0)

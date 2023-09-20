@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useEffect, useState } from 'react';
-import './style/index.scss';
+import './styles.scss';
 
 interface ISphereProps {
   width?: string;
