@@ -21,6 +21,8 @@ interface ContainerProps {
   id?: string;
   gap?: string;
   styles?: React.CSSProperties;
+  ref?: React.RefObject<HTMLDivElement>;
+  href?: string;
 }
 
 const Container: React.FC<ContainerProps> = (props) => {
@@ -34,7 +36,15 @@ const Container: React.FC<ContainerProps> = (props) => {
     flexDirection: props.direction ?? '',
     gap: props.gap ?? '',
   } as React.CSSProperties;
-  return (
+  return props.href ? (
+    <a
+      href={props.href}
+      className={`container ${props.className ?? ''}`}
+      style={style}
+    >
+      {props.children}
+    </a>
+  ) : (
     <div
       style={style ?? props.styles}
       className={
@@ -44,6 +54,7 @@ const Container: React.FC<ContainerProps> = (props) => {
           .join(' ')
       }
       id={props.id}
+      ref={props.ref}
     >
       {props.children}
     </div>

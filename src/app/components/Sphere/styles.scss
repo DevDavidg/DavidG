@@ -1,8 +1,6 @@
 @import '/src/app/stylesheets/variables.sass';
 
 $dot-size: 10px;
-$dot-bg-l: $color-b-p;
-$dot-bg-d: $color-w;
 $dot-transform: rotate(90deg);
 $sphere-animation-duration: 15s;
 $dot-animation-duration: 1s;
@@ -25,24 +23,21 @@ $dot-animation-duration: 1s;
   }
 }
 
-@keyframes pulsate {
-  0% {
-    transform: rotateX(90deg) scale(0.7) translateZ(10px);
-    opacity: 0.7;
-  }
-  100% {
-    transform: rotateX(0deg) scale(1) translateZ(0);
-    opacity: 1;
-  }
-}
-
 @keyframes izquierda {
-  0%,
-  100% {
-    transform: rotateZ(90deg);
+  0% {
+    transform: rotate3d(1, 0, 1, 0deg);
+  }
+  25% {
+    transform: rotate3d(1, 1, 1, 90deg);
   }
   50% {
-    transform: rotateY(90deg);
+    transform: rotate3d(1, 2, 1, 180deg);
+  }
+  75% {
+    transform: rotate3d(1, 1, 1, 270deg);
+  }
+  100% {
+    transform: rotate3d(1, 1, 0, 360deg);
   }
 }
 
@@ -58,7 +53,7 @@ $dot-animation-duration: 1s;
 
   &.visible {
     .sphere-wrapper {
-      animation: rotate3d $sphere-animation-duration linear infinite;
+      animation: rotate3d $sphere-animation-duration (linear) infinite;
     }
   }
 
@@ -80,13 +75,7 @@ $dot-animation-duration: 1s;
       @for $i from 0 through 36 {
         .spoke-#{$i} {
           .dot {
-            animation: pulsate
-              $dot-animation-duration
-              alternate
-              both
-              infinite
-              steps(100);
-            animation-delay: ($i * 0.1s * 2) + 0.1s;
+            animation: dotAnim $dot-animation-duration linear infinite;
           }
         }
       }
@@ -120,12 +109,13 @@ $dot-animation-duration: 1s;
   border-radius: 50%;
   left: -3px;
   top: 100%;
-  transform: $dot-transform;
-  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transform: rotate3d(1, 1, 1, 0deg);
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    background 0.5s ease-in-out;
   will-change: transform;
 
   &.l {
-    background: $dot-bg-d;
+    background: $color-w;
 
     &::before {
       content: '';
@@ -133,13 +123,13 @@ $dot-animation-duration: 1s;
       width: 40px;
       height: 1px;
       border-radius: 50%;
-      background: $dot-bg-d;
+      background: $color-w;
       top: 3px;
     }
   }
 
   &.d {
-    background: $dot-bg-l;
+    background: $color-b-p;
 
     &::before {
       content: '';
@@ -147,7 +137,7 @@ $dot-animation-duration: 1s;
       width: 40px;
       height: 1px;
       border-radius: 50%;
-      background: $dot-bg-l;
+      background: $color-b-p;
       top: 3px;
     }
   }

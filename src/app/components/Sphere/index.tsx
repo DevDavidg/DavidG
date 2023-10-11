@@ -5,6 +5,7 @@ interface ISphereProps {
   width?: string;
   height?: string;
   theme: 'l' | 'd';
+  style: React.CSSProperties;
 }
 
 function Sphere(props: ISphereProps) {
@@ -55,6 +56,7 @@ function Sphere(props: ISphereProps) {
     <div
       ref={sphereRef}
       className={`main-wrapper ${isVisible ? 'visible' : ''}`}
+      style={props.style}
     >
       {isVisible && (
         <div className="sphere-wrapper" style={spokeStyle}>

@@ -46,39 +46,63 @@ function Navbar({
     toggleDirection();
   };
 
-  const leftSection = (
+  const commonSection = (
     <Container
       justify="space-between"
       display="flex"
       width="100%"
       padding="1rem"
-      theme={isDarkMode ? 'd' : 'l'}
-      className={animateTransition ? 'transition-animation-right' : ''}
-    >
-      <Switch onChange={handleThemeChange} />
-      <Container display="flex" gap="25px">
-        <Text theme={isDarkMode ? 'text-p' : 'text-d'} width="120px" />
-        <Text theme={isDarkMode ? 'text-p' : 'text-d'} width="120px" />
-        <Text theme={isDarkMode ? 'text-p' : 'text-d'} width="120px" />
-      </Container>
-    </Container>
-  );
-
-  const rightSection = (
-    <Container
-      justify="space-between"
-      display="flex"
-      width="100%"
-      padding="1rem"
-      theme={isDarkMode ? 'd' : 'l'}
       className={animateTransition ? 'transition-animation' : ''}
     >
-      <Container display="flex" gap="25px">
-        <Text theme={isDarkMode ? 'text-p' : 'text-d'} width="120px" />
-        <Text theme={isDarkMode ? 'text-p' : 'text-d'} width="120px" />
-        <Text theme={isDarkMode ? 'text-p' : 'text-d'} width="120px" />
-      </Container>
-      <Switch onChange={handleThemeChange} />
+      {isRightToLeft ? (
+        <>
+          <Container display="flex" gap="25px">
+            <Text
+              href="#"
+              theme={isDarkMode ? 'text-d' : 'text-p'}
+              width="120px"
+              text={'Home'}
+            />
+            <Text
+              href="#About"
+              theme={isDarkMode ? 'text-d' : 'text-p'}
+              width="120px"
+              text={'About'}
+            />
+            <Text
+              href="#Work"
+              theme={isDarkMode ? 'text-d' : 'text-p'}
+              width="120px"
+              text={'Work'}
+            />
+          </Container>
+          <Switch onChange={handleThemeChange} />
+        </>
+      ) : (
+        <>
+          <Switch onChange={handleThemeChange} />
+          <Container display="flex" gap="25px">
+            <Text
+              theme={isDarkMode ? 'text-d' : 'text-p'}
+              width="120px"
+              text={'Home'}
+              href="#"
+            />
+            <Text
+              theme={isDarkMode ? 'text-d' : 'text-p'}
+              width="120px"
+              text={'About'}
+              href="#About"
+            />
+            <Text
+              theme={isDarkMode ? 'text-d' : 'text-p'}
+              width="120px"
+              text={'Contact'}
+              href="#Contact"
+            />
+          </Container>
+        </>
+      )}
     </Container>
   );
 
@@ -91,18 +115,16 @@ function Navbar({
 
   return (
     <Container
-      className={`navbar ${isDarkMode ? 'd' : 'l'} ${
-        scrollingUp ? 'scrolling-up' : ''
-      } ${scrolledPastTop ? 'scrolled-past-top' : ''} ${
-        isNavbarFixed ? 'fixed' : ''
-      }`}
+      className={`navbar ${scrollingUp ? 'scrolling-up' : ''} ${
+        scrolledPastTop ? 'scrolled-past-top' : ''
+      } ${isNavbarFixed ? 'fixed' : ''}`}
     >
       <Container
         className={`navbar-content ${
           scrolledPastTop ? 'scrolled-past-top' : ''
         }`}
       >
-        {isRightToLeft ? rightSection : leftSection}
+        {commonSection}
       </Container>
     </Container>
   );

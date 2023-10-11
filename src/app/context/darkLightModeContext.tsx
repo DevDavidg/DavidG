@@ -18,10 +18,12 @@ const ThemeContext = createContext(
 );
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [isMounted, setIsMounted] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isRightToLeft, setIsRightToLeft] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     if (typeof window !== 'undefined') {
       const storedDarkMode = localStorage.getItem('isDarkMode');
       setIsDarkMode(storedDarkMode === 'true');
@@ -47,7 +49,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <ThemeContext.Provider value={themeValue}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={themeValue}>
+      {isMounted ? children : null}
+    </ThemeContext.Provider>
   );
 }
 

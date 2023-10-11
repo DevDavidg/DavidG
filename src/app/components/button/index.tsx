@@ -10,6 +10,7 @@ interface ButtonProps {
   height?: string;
   href?: string;
   fontSize?: string;
+  onClick?: () => void;
 }
 
 type CustomStyle = {
@@ -34,9 +35,9 @@ const Button: React.FC<ButtonProps> = React.memo((props) => {
   const style: CustomStyle = {
     '--width': props.width ?? '80px',
     '--padding': props.padding ?? 'auto',
-    '--height': props.height ?? 'auto',
     '--font-size': props.fontSize ?? '13px',
     textDecoration: props.href ? 'none' : '',
+    '--height': props.height ?? 'auto',
   };
 
   const commonClasses = ['btn', props.theme, props.outline && 'outlined']
@@ -45,7 +46,13 @@ const Button: React.FC<ButtonProps> = React.memo((props) => {
 
   return (
     <div
-      style={{ width: props.width ?? '80px', ...style, position: 'relative' }}
+      style={{
+        width: props.width ?? '80px',
+        ...style,
+        position: 'relative',
+        height: props.height ?? 'auto',
+      }}
+      onClick={props.onClick}
     >
       {showSkeleton && (
         <span
