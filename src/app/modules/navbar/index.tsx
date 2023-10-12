@@ -97,8 +97,8 @@ function Navbar({
             <Text
               theme={isDarkMode ? 'text-d' : 'text-p'}
               width="120px"
-              text={'Contact'}
-              href="#Contact"
+              text={'Work'}
+              href="#Work"
             />
           </Container>
         </>

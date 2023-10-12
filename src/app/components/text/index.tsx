@@ -4,7 +4,7 @@ import './index.sass';
 interface TextProps {
   text?: string | React.JSX.Element;
   theme?: 'text-p' | 'text-d' | 'text-default';
-  size?: 's' | 'sm' | 'm' | 'l' | 'xl';
+  size?: 's' | 'sm' | 'm' | 'l' | 'xl' | string;
   weight?: 'semibold' | 'light' | 'regular' | 'bold' | 'bolder';
   align?: 'left' | 'center' | 'right';
   margin?: string;
@@ -56,31 +56,45 @@ const Text: React.FC<TextProps> = (props) => {
     [displayedText]
   );
 
+  const toggleCursorVisibility = useCallback(() => {
+    setIsCursorVisible((prevIsCursorVisible) => !prevIsCursorVisible);
+  }, []);
+
+  const handleDeleting = useCallback(() => {
+    if (typeof displayedText === 'string' && displayedText.length > 0) {
+      setDisplayedText(displayedText.slice(0, -1));
+    } else {
+      setIsDeleting(false);
+      setCurrentTextIndex(currentTextIndex + 1);
+    }
+  }, [displayedText, currentTextIndex]);
+
+  const handleTimeout = useCallback(() => {
+    const currentWord = typingText[currentTextIndex % typingText.length];
+
+    if (isDeleting) {
+      handleDeleting();
+    } else {
+      handleTypingAnimation(currentWord);
+    }
+
+    if (showSkeleton) {
+      setShowSkeleton(false);
+    }
+  }, [
+    isDeleting,
+    currentTextIndex,
+    showSkeleton,
+    typingText,
+    handleDeleting,
+    handleTypingAnimation,
+  ]);
+
   useEffect(() => {
     if (typingText.length > 0) {
-      const cursorInterval = setInterval(() => {
-        setIsCursorVisible((prevIsCursorVisible) => !prevIsCursorVisible);
-      }, 500);
-
+      const cursorInterval = setInterval(toggleCursorVisibility, 500);
       const timeout = setTimeout(
-        () => {
-          const currentWord = typingText[currentTextIndex % typingText.length];
-
-          if (isDeleting) {
-            if (typeof displayedText === 'string' && displayedText.length > 0) {
-              setDisplayedText(displayedText.slice(0, -1));
-            } else {
-              setIsDeleting(false);
-              setCurrentTextIndex(currentTextIndex + 1);
-            }
-          } else {
-            handleTypingAnimation(currentWord);
-          }
-
-          if (showSkeleton) {
-            setShowSkeleton(false);
-          }
-        },
+        handleTimeout,
         isDeleting ? deleteInterval : typingInterval
       );
 
@@ -90,76 +104,61 @@ const Text: React.FC<TextProps> = (props) => {
       };
     }
   }, [
-    displayedText,
     isDeleting,
-    currentTextIndex,
-    showSkeleton,
     typingInterval,
     deleteInterval,
     typingText,
-    handleTypingAnimation,
+    handleTimeout,
+    toggleCursorVisibility,
   ]);
 
   const textClassNames = [
     'text',
     props.theme ?? 'text-default',
     props.size ?? 'm',
-    props.align ?? 'left',
   ].join(' ');
+
+  const textStyles = {
+    margin,
+    padding,
+    width,
+    height,
+    fontWeight: weight,
+    ...props.style,
+    fontSize: props.size,
+  };
 
   const renderContent = () => {
     const textContent = props.href ? (
       <a
         key="text-link"
         href={props.href}
-        style={{
-          margin,
-          padding,
-          width,
-          height,
-          fontWeight: weight,
-          ...props.style,
-        }}
+        style={textStyles}
+        className={textClassNames}
       >
         {props.text}
       </a>
     ) : (
-      <span
-        key="text-content"
-        style={{
-          margin,
-          padding,
-          width,
-          height,
-          fontWeight: weight,
-          ...props.style,
-        }}
-      >
+      <span key="text-content" style={textStyles} className={textClassNames}>
         {props.text}
       </span>
     );
 
-    return (
-      <span
-        style={{
-          margin,
-          padding,
-          width,
-          height,
-          fontWeight: weight,
-          ...props.style,
-        }}
-      >
-        {textContent}
-        {typingText.length > 0 &&
-          Array.from(String(displayedText)).map((char, index) => {
-            const uniqueKey = `char-${index}-${JSON.stringify(char)}`;
-            return <span key={uniqueKey}>{char}</span>;
-          })}
-        {typingText.length > 0 && isCursorVisible && (
-          <span className="cursor">|</span>
-        )}
+    const typingContent = (
+      <span key="typing-content" className={textClassNames} style={textStyles}>
+        {Array.from(String(displayedText)).map((char, index) => {
+          const uniqueKey = `char-${index}-${JSON.stringify(char)}`;
+          return <span key={uniqueKey}>{char}</span>;
+        })}
+        {isCursorVisible && <span className="cursor">|</span>}
       </span>
+    );
+
+    return (
+      <>
+        {textContent}
+        {typingText.length > 0 && typingContent}
+      </>
     );
   };
 
@@ -172,23 +171,7 @@ const Text: React.FC<TextProps> = (props) => {
   return (
     <>
       {props.text || typingText.length > 0 ? (
-        <p
-          style={{
-            margin,
-            padding,
-            width,
-            height,
-            fontWeight: weight,
-            ...props.style,
-          }}
-          className={textClassNames}
-        >
-          {showSkeleton ? (
-            <span className="skeleton-animation">{'\u00A0'}</span>
-          ) : (
-            renderContent()
-          )}
-        </p>
+        renderContent()
       ) : (
         <div
           style={{

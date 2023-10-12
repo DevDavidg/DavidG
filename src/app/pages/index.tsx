@@ -7,10 +7,8 @@ import { useTheme } from '../context/darkLightModeContext';
 import Button from '../components/Button';
 import Blob from '../components/Blob';
 import './index.sass';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import AboutSection from './aboutSection';
+import ProjectCard from '../components/ProjectCard';
 
 const calculateHomeSectionTop = () =>
   typeof window !== 'undefined'
@@ -176,6 +174,32 @@ const renderSection = (
   </Container>
 );
 
+const ProjectsSection = (
+  isRightToLeft: boolean,
+  isDarkMode: boolean,
+  animateTransition: boolean
+) => (
+  <Container
+    height="100vh"
+    id="Project"
+    align="center"
+    justify="center"
+    display="flex"
+    className={animateTransition ? 'transition-animation' : ''}
+    direction={isRightToLeft ? 'row-reverse' : 'row'}
+  >
+    <ProjectCard
+      demoUrl="https://www.google.com"
+      github="https://www.google.com"
+      title="Project 1"
+      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
+      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
+      theme={isDarkMode ? 'l' : 'd'}
+      icons={['react', 'angular', 'haml']}
+    />
+  </Container>
+);
+
 function Index() {
   const { isDarkMode, toggleTheme, isRightToLeft, toggleDirection } =
     useTheme();
@@ -250,7 +274,7 @@ function Index() {
             />
           </Container>
           <Container id="Work" height="100vh">
-            {/* Contenido de la sección "projects" */}
+            {ProjectsSection(isRightToLeft, isDarkMode, animateTransition)}
           </Container>
         </Container>
       </Container>

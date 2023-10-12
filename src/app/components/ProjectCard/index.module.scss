@@ -1,0 +1,67 @@
+.card {
+  width: 300px;
+  height: auto;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+  }
+
+  .gifContainer {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .gifContainer canvas,
+  .gifContainer img {
+    width: 100%;
+    height: auto;
+  }
+
+  .gifContainer img {
+    filter: grayscale(100%);
+    transition: filter 0.3s;
+  }
+
+  .gifContainer img.colorGif {
+    filter: grayscale(0%);
+  }
+
+  &.dark {
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.633);
+    background-color: #333;
+
+    .icon {
+      filter: invert(1);
+    }
+  }
+
+  &.light {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+
+    .icon {
+      filter: none;
+    }
+  }
+}
