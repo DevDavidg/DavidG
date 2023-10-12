@@ -187,7 +187,45 @@ const ProjectsSection = (
     display="flex"
     className={animateTransition ? 'transition-animation' : ''}
     direction={isRightToLeft ? 'row-reverse' : 'row'}
+    gap="1rem"
+    wrap
   >
+    <ProjectCard
+      demoUrl="https://www.google.com"
+      github="https://www.google.com"
+      title="Project 1"
+      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
+      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
+      theme={isDarkMode ? 'l' : 'd'}
+      icons={['react', 'angular', 'haml']}
+    />
+    <ProjectCard
+      demoUrl="https://www.google.com"
+      github="https://www.google.com"
+      title="Project 1"
+      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
+      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
+      theme={isDarkMode ? 'l' : 'd'}
+      icons={['react', 'angular', 'haml']}
+    />
+    <ProjectCard
+      demoUrl="https://www.google.com"
+      github="https://www.google.com"
+      title="Project 1"
+      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
+      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
+      theme={isDarkMode ? 'l' : 'd'}
+      icons={['react', 'angular', 'haml']}
+    />
+    <ProjectCard
+      demoUrl="https://www.google.com"
+      github="https://www.google.com"
+      title="Project 1"
+      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
+      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
+      theme={isDarkMode ? 'l' : 'd'}
+      icons={['react', 'angular', 'haml']}
+    />
     <ProjectCard
       demoUrl="https://www.google.com"
       github="https://www.google.com"

@@ -35,6 +35,7 @@ const Container: React.FC<ContainerProps> = (props) => {
     justifyContent: props.justify ?? '',
     flexDirection: props.direction ?? '',
     gap: props.gap ?? '',
+    flexWrap: props.wrap ? 'wrap' : '',
   } as React.CSSProperties;
   return props.href ? (
     <a
