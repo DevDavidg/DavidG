@@ -4,7 +4,7 @@ import './index.sass';
 interface TextProps {
   text?: string | React.JSX.Element;
   theme?: 'text-p' | 'text-d' | 'text-default';
-  size?: 's' | 'sm' | 'm' | 'l' | 'xl' | string;
+  size?: 's' | 'sm' | 'm' | 'l' | 'xl' | `${number}${'px' | 'rem'}`;
   weight?: 'semibold' | 'light' | 'regular' | 'bold' | 'bolder';
   align?: 'left' | 'center' | 'right';
   margin?: string;

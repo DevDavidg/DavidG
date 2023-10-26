@@ -23,6 +23,8 @@ interface ContainerProps {
   styles?: React.CSSProperties;
   ref?: React.RefObject<HTMLDivElement>;
   href?: string;
+  transform?: string;
+  transition?: string;
 }
 
 const Container: React.FC<ContainerProps> = (props) => {
@@ -36,6 +38,8 @@ const Container: React.FC<ContainerProps> = (props) => {
     flexDirection: props.direction ?? '',
     gap: props.gap ?? '',
     flexWrap: props.wrap ? 'wrap' : '',
+    transform: props.transform ?? '',
+    transition: props.transition ?? '',
   } as React.CSSProperties;
   return props.href ? (
     <a

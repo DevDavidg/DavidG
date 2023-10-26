@@ -11,6 +11,10 @@ interface ButtonProps {
   href?: string;
   fontSize?: string;
   onClick?: () => void;
+  key?: string;
+  styles?: React.CSSProperties;
+  divRef?: React.Ref<HTMLDivElement>;
+  buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
 type CustomStyle = {
@@ -53,6 +57,8 @@ const Button: React.FC<ButtonProps> = React.memo((props) => {
         height: props.height ?? 'auto',
       }}
       onClick={props.onClick}
+      key={props.key}
+      ref={props.divRef}
     >
       {showSkeleton && (
         <span
@@ -74,7 +80,11 @@ const Button: React.FC<ButtonProps> = React.memo((props) => {
             )}
           </a>
         ) : (
-          <button className={commonClasses} style={style}>
+          <button
+            className={commonClasses}
+            style={style && props.styles}
+            ref={props.buttonRef}
+          >
             {props.text ?? (
               <div
                 className={

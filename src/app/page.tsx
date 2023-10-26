@@ -1,13 +1,16 @@
-import { ThemeProvider } from './context/darkLightModeContext';
+import { DeviceProvider } from '@/app/context/deviceContext';
 import styles from './page.module.sass';
-import Index from './pages';
+import Index from '@/app/pages/index';
+import { ThemeProvider } from '@/app/context/darkLightModeContext';
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <ThemeProvider>
-        <Index />
-      </ThemeProvider>
+      <DeviceProvider>
+        <ThemeProvider>
+          <Index />
+        </ThemeProvider>
+      </DeviceProvider>
     </main>
   );
 }

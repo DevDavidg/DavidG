@@ -62,7 +62,6 @@ $dot-animation-duration: 1s;
     width: var(--width);
     height: var(--height);
     position: relative;
-    /* animation: rotate3d $sphere-animation-duration linear infinite; */ /* Comentado para activar la animación cuando sea visible */
 
     .plane {
       position: absolute;

@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import './globals.sass';
+import '@/app/globals.sass';
+import '@/app/stylesheets/GlobalStyles.scss';
 
 export const metadata = {
   title: 'DevDavidG',

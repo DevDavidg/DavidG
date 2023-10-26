@@ -13,20 +13,26 @@
     display: flex
     justify-content: center
     align-items: center
+
     &.l
         background: $color-b
         color: $color-w
+        border: 1px solid transparent
+
         &:hover
             background: $color-w
             color: $color-b
             border: 1px solid $color-b
+
     &.d
         background: $color-w
         color: $color-b
+        border: 1px solid transparent
         &:hover
             background: $color-b
             color: $color-w
             border: 1px solid $color-w
+
     &:active
         transform: scale(0.95)
     .btn__text--d

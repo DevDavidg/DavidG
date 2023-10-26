@@ -8,7 +8,7 @@ import Button from '../components/Button';
 import Blob from '../components/Blob';
 import './index.sass';
 import AboutSection from './aboutSection';
-import ProjectCard from '../components/ProjectCard';
+import ProjectsSection from './projectSection';
 
 const calculateHomeSectionTop = () =>
   typeof window !== 'undefined'
@@ -173,71 +173,6 @@ const renderSection = (
     </Container>
   </Container>
 );
-
-const ProjectsSection = (
-  isRightToLeft: boolean,
-  isDarkMode: boolean,
-  animateTransition: boolean
-) => (
-  <Container
-    height="100vh"
-    id="Project"
-    align="center"
-    justify="center"
-    display="flex"
-    className={animateTransition ? 'transition-animation' : ''}
-    direction={isRightToLeft ? 'row-reverse' : 'row'}
-    gap="1rem"
-    wrap
-  >
-    <ProjectCard
-      demoUrl="https://www.google.com"
-      github="https://www.google.com"
-      title="Project 1"
-      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
-      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
-      theme={isDarkMode ? 'l' : 'd'}
-      icons={['react', 'angular', 'haml']}
-    />
-    <ProjectCard
-      demoUrl="https://www.google.com"
-      github="https://www.google.com"
-      title="Project 1"
-      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
-      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
-      theme={isDarkMode ? 'l' : 'd'}
-      icons={['react', 'angular', 'haml']}
-    />
-    <ProjectCard
-      demoUrl="https://www.google.com"
-      github="https://www.google.com"
-      title="Project 1"
-      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
-      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
-      theme={isDarkMode ? 'l' : 'd'}
-      icons={['react', 'angular', 'haml']}
-    />
-    <ProjectCard
-      demoUrl="https://www.google.com"
-      github="https://www.google.com"
-      title="Project 1"
-      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
-      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
-      theme={isDarkMode ? 'l' : 'd'}
-      icons={['react', 'angular', 'haml']}
-    />
-    <ProjectCard
-      demoUrl="https://www.google.com"
-      github="https://www.google.com"
-      title="Project 1"
-      description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
-      gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
-      theme={isDarkMode ? 'l' : 'd'}
-      icons={['react', 'angular', 'haml']}
-    />
-  </Container>
-);
-
 function Index() {
   const { isDarkMode, toggleTheme, isRightToLeft, toggleDirection } =
     useTheme();
@@ -312,7 +247,11 @@ function Index() {
             />
           </Container>
           <Container id="Work" height="100vh">
-            {ProjectsSection(isRightToLeft, isDarkMode, animateTransition)}
+            <ProjectsSection
+              isRightToLeft={isRightToLeft}
+              isDarkMode={isDarkMode}
+              animateTransition={animateTransition}
+            />
           </Container>
         </Container>
       </Container>

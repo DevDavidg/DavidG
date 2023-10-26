@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import styles from './index.module.scss';
-import GifComponent from './GifComponent';
-import Text from '../Text';
-import Button from '../Button';
-import Container from '../Container';
+import React, { useState, useEffect } from 'react';
+import Img from 'next/image';
+import s from './index.module.scss';
+import Gif from './GifComponent';
+import Txt from '../Text';
+import Btn from '../Button';
+import Ctn from '../Container';
 
-interface Props {
+interface ProjectCardProps {
   gif: string;
   title: string;
   description: string;
@@ -14,9 +14,11 @@ interface Props {
   demoUrl: string;
   github: string;
   theme: 'l' | 'd';
+  cardLang: string[];
+  filter?: string;
 }
 
-const ProjectCard: React.FC<Props> = ({
+const ProjectCard: React.FC<ProjectCardProps> = ({
   gif,
   title,
   description,
@@ -24,45 +26,54 @@ const ProjectCard: React.FC<Props> = ({
   demoUrl,
   github,
   theme,
+  cardLang,
+  filter,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isRendered, setIsRendered] = useState(true);
+  const [animClass, setAnimClass] = useState('');
+
+  useEffect(() => {
+    if (filter && !cardLang.includes(filter)) {
+      setAnimClass('bounceOut');
+      setTimeout(() => setIsRendered(false), 400);
+    } else {
+      setIsRendered(true);
+      setAnimClass('bounceIn');
+    }
+  }, [filter, cardLang]);
+
+  if (!isRendered) return null;
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`${styles.card} ${theme === 'd' ? styles.dark : styles.light}`}
+      className={`${s.card} ${theme === 'd' ? s.dark : s.light} ${
+        s[animClass]
+      } ${animClass}`}
+      id={cardLang.join('')}
     >
-      <GifComponent src={gif} isHovered={isHovered} />
-      <Container
+      <Gif src={gif} isHovered={isHovered} />
+      <Ctn
         direction="column"
         display="flex"
         padding="1rem"
         gap="1rem"
-        className={styles.textContainer}
+        className={s.textContainer}
         justify="space-between"
         height="100%"
       >
-        <Container
-          justify="space-between"
-          display="flex"
-          width="100%"
-          align="center"
-        >
-          <Text
+        <Ctn justify="space-between" display="flex" width="100%" align="center">
+          <Txt
             text={title}
             theme={theme === 'l' ? 'text-d' : 'text-p'}
             size="1.3rem"
             weight="bold"
           />
-          <Container
-            display="flex"
-            gap="0.5rem"
-            align="center"
-            justify="center"
-          >
-            {icons?.map((icon) => (
-              <Image
+          <Ctn display="flex" gap="0.5rem" align="center" justify="center">
+            {icons.map((icon) => (
+              <Img
                 src={`/icons/${icon}.svg`}
                 alt={`${icon} icon`}
                 width={20}
@@ -70,18 +81,18 @@ const ProjectCard: React.FC<Props> = ({
                 key={icon}
               />
             ))}
-          </Container>
-        </Container>
-        <Text text={description} theme={theme === 'l' ? 'text-d' : 'text-p'} />
-        <div className={styles.buttonContainer}>
-          <Button
+          </Ctn>
+        </Ctn>
+        <Txt text={description} theme={theme === 'l' ? 'text-d' : 'text-p'} />
+        <div className={s.buttonContainer}>
+          <Btn
             theme={theme}
             href={demoUrl}
             text="Demo"
             fontSize="1.2rem"
             width="100%"
           />
-          <Button
+          <Btn
             theme={theme}
             href={github}
             text="Github"
@@ -89,7 +100,7 @@ const ProjectCard: React.FC<Props> = ({
             width="100%"
           />
         </div>
-      </Container>
+      </Ctn>
     </div>
   );
 };

@@ -8,6 +8,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  animation-duration: 0.5s;
 
   &:hover {
     transform: scale(1.05);
@@ -63,5 +64,41 @@
     .icon {
       filter: none;
     }
+  }
+}
+
+.card.bounceIn {
+  animation-name: bounceIn;
+}
+
+.card.bounceOut {
+  animation-name: bounceOut;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
   }
 }
