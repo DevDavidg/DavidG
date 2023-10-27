@@ -11,19 +11,11 @@ interface ButtonProps {
   href?: string;
   fontSize?: string;
   onClick?: () => void;
-  key?: string;
   styles?: React.CSSProperties;
   divRef?: React.Ref<HTMLDivElement>;
   buttonRef?: React.Ref<HTMLButtonElement>;
+  disabled?: boolean;
 }
-
-type CustomStyle = {
-  '--width'?: string;
-  '--padding'?: string;
-  '--height'?: string;
-  '--font-size'?: string;
-  textDecoration?: string;
-};
 
 const Button: React.FC<ButtonProps> = React.memo((props) => {
   const [showSkeleton, setShowSkeleton] = useState(true);
@@ -36,28 +28,33 @@ const Button: React.FC<ButtonProps> = React.memo((props) => {
     return () => clearTimeout(timeout);
   }, []);
 
-  const style: CustomStyle = {
-    '--width': props.width ?? '80px',
+  const style = {
+    '--width': props.width ?? '8rem',
     '--padding': props.padding ?? 'auto',
-    '--font-size': props.fontSize ?? '13px',
-    textDecoration: props.href ? 'none' : '',
+    '--font-size': props.fontSize ?? '1rem',
+    textDecoration: props.href ? 'none' : 'auto',
     '--height': props.height ?? 'auto',
+    ...props.styles,
   };
 
-  const commonClasses = ['btn', props.theme, props.outline && 'outlined']
+  const commonClasses = [
+    'btn',
+    props.theme,
+    props.outline && 'outlined',
+    !showSkeleton && props.disabled && 'disabledbtn',
+  ]
     .filter((p) => p)
     .join(' ');
 
   return (
     <div
       style={{
-        width: props.width ?? '80px',
+        width: props.width ?? '8rem',
         ...style,
         position: 'relative',
         height: props.height ?? 'auto',
       }}
       onClick={props.onClick}
-      key={props.key}
       ref={props.divRef}
     >
       {showSkeleton && (
@@ -82,8 +79,9 @@ const Button: React.FC<ButtonProps> = React.memo((props) => {
         ) : (
           <button
             className={commonClasses}
-            style={style && props.styles}
+            style={style}
             ref={props.buttonRef}
+            disabled={props.disabled}
           >
             {props.text ?? (
               <div

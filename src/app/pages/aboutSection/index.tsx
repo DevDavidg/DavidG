@@ -4,6 +4,8 @@ import React from 'react';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { addSpace } from '@/app/services/functions';
+import theme from '@/app/stylesheets/theme.module.sass';
 
 const AboutSection = ({
   animateTransition,
@@ -24,9 +26,13 @@ const AboutSection = ({
       height="100vh"
       id="about"
       display="flex"
-      className={animateTransition ? 'transition-animation' : ''}
+      className={addSpace(
+        animateTransition
+          ? 'transition-animation'
+          : 'transition-animation-right'
+      )}
       direction={direction}
-      padding={'70px 0px 0px 0px'}
+      padding={'4.375rem 0 0 0'}
     >
       <Container
         width="50%"
@@ -36,11 +42,16 @@ const AboutSection = ({
         align={align}
         direction="column"
       >
-        <Container display="flex" gap="30px" direction="column" align={align}>
+        <Container
+          display="flex"
+          gap="1.87rem"
+          direction="column"
+          align={align}
+        >
           <Text
             theme={textTheme}
-            width="123px"
-            height="31px"
+            width="7.68rem"
+            height="1.93rem"
             text={'Who I am?'}
             style={
               {
@@ -50,8 +61,8 @@ const AboutSection = ({
           />
           <Text
             theme={textTheme}
-            width="274px"
-            height="184px"
+            width="17.125rem"
+            height="11.5rem"
             text={isRightToLeft ? 'I am a developer' : 'I am a designer'}
             style={
               {
@@ -64,8 +75,8 @@ const AboutSection = ({
           />
           <Text
             theme={textTheme}
-            width="274px"
-            height="60px"
+            width="17.125rem"
+            height="3.75rem"
             text={
               'My name is David, I am currently 21 years old, I live in Almagro CABA, Buenos Aires, Argentina'
             }
@@ -75,15 +86,15 @@ const AboutSection = ({
                 textAlign: isRightToLeft ? 'start' : 'end',
               } as React.CSSProperties
             }
-            margin="0px 0px 40% 0px"
+            margin="0 0 40% 0"
           />
         </Container>
-        <Container padding={'0px 0px 44px 0px'}>
+        <Container padding={'0 0 2.75rem 0'}>
           <Text
             theme={textTheme}
             weight="semibold"
-            width="100px"
-            height="31px"
+            width="6.25rem"
+            height="1.93rem"
             text={'Contact'}
             size="sm"
             style={
@@ -94,40 +105,40 @@ const AboutSection = ({
             }
           />
         </Container>
-        <Container display="flex" gap="23px" direction="column">
+        <Container display="flex" gap="1.43rem" direction="column">
           <Container
             display="flex"
-            gap="10px"
+            gap="0.62rem"
             align="center"
             direction={direction}
             href="https://www.linkedin.com/in/david-guillen-5074281b8/"
           >
             <FontAwesomeIcon
               icon={faLinkedin}
-              style={{ color: !isDarkMode ? '#fff' : '#000' }}
+              style={{ color: !isDarkMode ? theme.w : theme.d }}
             />
             <Text
               theme={textTheme}
-              width="65px"
-              height="25px"
+              width="4rem"
+              height="1.56rem"
               text={'Linkedin'}
               style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
             />
           </Container>
           <Container
             display="flex"
-            gap="10px"
+            gap="0.62rem"
             align="center"
             direction={direction}
           >
             <FontAwesomeIcon
               icon={faGithub}
-              style={{ color: !isDarkMode ? '#fff' : '#000' }}
+              style={{ color: !isDarkMode ? theme.w : theme.d }}
             />
             <Text
               theme={textTheme}
-              width="55px"
-              height="25px"
+              width="3.43rem"
+              height="1.56rem"
               text={'Github'}
               style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
               href="www.github.com"
@@ -135,19 +146,19 @@ const AboutSection = ({
           </Container>
           <Container
             display="flex"
-            gap="10px"
+            gap="0.62rem"
             align="center"
             direction={direction}
             href="mailto:dev.davidg@gmail.com"
           >
             <FontAwesomeIcon
               icon={faEnvelope}
-              style={{ color: !isDarkMode ? '#fff' : '#000' }}
+              style={{ color: !isDarkMode ? theme.w : theme.d }}
             />
             <Text
               theme={textTheme}
-              width="55px"
-              height="25px"
+              width="3.43rem"
+              height="1.56rem"
               text={'Email'}
               style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
             />

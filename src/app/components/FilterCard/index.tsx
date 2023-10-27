@@ -114,10 +114,10 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             {new Array(Math.ceil(lang.length / 6)).fill(0).map((_, idx) => (
               <div
-                key={`indicator-${simpleHash(lang.join('-'))}`}
+                key={`indicator-${simpleHash(lang.join('-'))}-${idx}`}
                 style={{
-                  width: '10px',
-                  height: '10px',
+                  width: '0.7rem',
+                  height: '0.7rem',
                   borderRadius: '50%',
                   background:
                     idx === Math.floor(currentSlide / 6) ? 'black' : 'grey',

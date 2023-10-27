@@ -1,5 +1,6 @@
+@import '../../stylesheets/variables.sass';
 .card {
-  width: 300px;
+  width: 18.75rem;
   height: auto;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
@@ -22,9 +23,9 @@
   }
 
   .icon {
-    width: 20px;
-    height: 20px;
-    margin-left: 8px;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.5rem;
   }
 
   .gifContainer {
@@ -50,7 +51,7 @@
 
   &.dark {
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.633);
-    background-color: #333;
+    background-color: $d-card;
 
     .icon {
       filter: invert(1);
@@ -59,7 +60,7 @@
 
   &.light {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-    background-color: #fff;
+    background-color: $w;
 
     .icon {
       filter: none;

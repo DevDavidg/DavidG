@@ -1,182 +1,26 @@
 'use client';
-import React, { useEffect, useState, lazy } from 'react';
-import Navbar from '../modules/navbar';
-import Container from '../components/Container';
-import Text from '../components/Text';
-import { useTheme } from '../context/darkLightModeContext';
-import Button from '../components/Button';
-import Blob from '../components/Blob';
-import './index.sass';
-import AboutSection from './aboutSection';
-import ProjectsSection from './projectSection';
+import React, { useEffect, useState } from 'react';
+import Navbar from '@/app/modules/navbar';
+import HomeSection from '@/app/pages/homeSection';
+import AboutSection from '@/app/pages/aboutSection';
+import ProjectsSection from '@/app/pages/projectSection';
+import { useTheme } from '@/app/context/darkLightModeContext';
+import { useDevice } from '@/app/context/deviceContext';
+import {
+  addSpace,
+  calculateBlobStyle,
+  calculateCurrentTheme,
+  calculateHomeSectionTop,
+  calculateSphereStyle,
+  calculateTranslateXValue,
+} from '@/app/services/functions';
+import Container from '@/app/components/Container';
 
-const calculateHomeSectionTop = () =>
-  typeof window !== 'undefined'
-    ? document.getElementById('home')?.getBoundingClientRect().top ?? 0
-    : 0;
-
-const calculateCurrentTheme = (isDarkMode: boolean, homeSectionTop: number) => {
-  return typeof window !== 'undefined' &&
-    homeSectionTop >= 0 &&
-    homeSectionTop <= window.innerHeight
-    ? isDarkMode
-    : !isDarkMode;
-};
-
-const calculateSphereStyle = (scrollY: number) => ({
-  transform: `translateY(${scrollY}px)`,
-  transition: 'transform 0.5s ease',
-});
-
-const calculateTranslateXValue = (
-  isDarkMode: boolean,
-  isRightToLeft: boolean,
-  scrollY: number
-) => {
-  let translateX;
-  if (isRightToLeft) {
-    translateX = isDarkMode ? scrollY / 3 : -scrollY / 3;
-  } else {
-    translateX = -scrollY / 3;
-  }
-  return `translateX(${translateX}px)`;
-};
-
-const calculateBlobStyle = (scrollY: number, translateXValue: string) => ({
-  transform: `translateY(${scrollY / 2.7}px) ${translateXValue}`,
-  transition: 'transform 0.5s ease',
-  filter: `blur(${scrollY * 0.2}px)`,
-});
-
-const LazySphere = lazy(() => import('../components/Sphere'));
-
-const renderSection = (
-  currentTheme: 'l' | 'd',
-  animateTransition: boolean,
-  isRightToLeft: boolean,
-  isDarkMode: boolean,
-  blobStyle: React.CSSProperties,
-  sphereStyle: React.CSSProperties
-) => (
-  <Container
-    height="100vh"
-    id="home"
-    align="center"
-    justify="center"
-    display="flex"
-    className={animateTransition ? 'transition-animation' : ''}
-    direction={isRightToLeft ? 'row-reverse' : 'row'}
-  >
-    <Container
-      width="50%"
-      display="flex"
-      justify="center"
-      align="center"
-      height="100%"
-    >
-      <Blob
-        theme={isDarkMode ? 'd' : 'l'}
-        width="600px"
-        height="500px"
-        top="50%"
-        left="50%"
-        style={blobStyle}
-      />
-      <LazySphere
-        theme={currentTheme}
-        width="150px"
-        height="150px"
-        style={sphereStyle}
-      />
-    </Container>
-    <Container
-      display="flex"
-      direction="column"
-      justify="center"
-      align={isRightToLeft ? 'start' : 'end'}
-      width="50%"
-      gap="5px"
-    >
-      <Text
-        theme={isDarkMode ? 'text-d' : 'text-p'}
-        width="200px"
-        height="23px"
-        text={
-          `Hello, i'm` + ' ' + (isRightToLeft ? 'Developer' : 'UX/UI Designer')
-        }
-        size="m"
-        padding="0"
-        style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
-      />
-      <Text
-        theme={isDarkMode ? 'text-d' : 'text-p'}
-        width="420px"
-        height="90px"
-        text={'David Guillen'}
-        size="xl"
-        style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
-      />
-      <Text
-        theme={isDarkMode ? 'text-d' : 'text-p'}
-        width="250px"
-        height="25px"
-        typingText={
-          isRightToLeft
-            ? [
-                'React',
-                'Angular',
-                'Vue',
-                'TypeScript',
-                'JavaScript',
-                'HTML',
-                'CSS',
-                'SASS',
-                'Less',
-                'StyledComponents',
-                'MaterialUI',
-                'React Native',
-              ]
-            : [
-                'Figma',
-                'Adobe XD',
-                'Adobe Photoshop',
-                'Adobe Illustrator',
-                'Sketch',
-                'Behance',
-                'Canva',
-              ]
-        }
-        size="m"
-        typingInterval={300}
-        deleteInterval={200}
-        margin="0px 0px 50px 0"
-        style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
-      />
-      <Container display="flex" gap="50px">
-        <Button
-          theme={isDarkMode ? 'l' : 'd'}
-          width="200px"
-          height="55px"
-          text="Projects"
-          href="#Projects"
-          fontSize="1.5rem"
-        />
-        <Button
-          theme={isDarkMode ? 'l' : 'd'}
-          width="200px"
-          height="55px"
-          href="#about"
-          text="About"
-          fontSize="1.5rem"
-        />
-      </Container>
-    </Container>
-  </Container>
-);
 function Index() {
   const { isDarkMode, toggleTheme, isRightToLeft, toggleDirection } =
     useTheme();
-  const [animateTransition, setAnimateTransition] = useState(false);
+  const device = useDevice();
+  const [animateTransition, setAnimateTransition] = useState(true);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -202,7 +46,6 @@ function Index() {
   const sphereStyle = calculateSphereStyle(
     scrollY < stopSphereFollowScroll ? scrollY : stopSphereFollowScroll
   );
-
   const translateXValue = calculateTranslateXValue(
     isDarkMode,
     isRightToLeft,
@@ -220,6 +63,7 @@ function Index() {
         toggleTheme={toggleTheme}
         isRightToLeft={isRightToLeft}
         toggleDirection={toggleDirection}
+        animateTransition={animateTransition}
       />
       <Container
         theme={isDarkMode ? 'd' : 'l'}
@@ -228,17 +72,40 @@ function Index() {
         align="center"
       >
         <Container
-          width={`calc(100vw - ${isRightToLeft ? '150px' : '300px'})`}
+          width={`calc(100vw - ${isRightToLeft ? '9.37rem' : '18.75rem'})`}
           theme={isDarkMode ? 'd' : 'l'}
         >
-          {renderSection(
-            currentTheme ? 'l' : 'd',
-            animateTransition,
-            isRightToLeft,
-            isDarkMode,
-            blobStyle,
-            sphereStyle
-          )}
+          <Container
+            height="100vh"
+            id="home"
+            align="center"
+            justify="center"
+            display="flex"
+            className={addSpace(
+              animateTransition
+                ? 'transition-animation'
+                : 'transition-animation-right'
+            )}
+            direction={
+              device === 'mobile'
+                ? 'column-reverse'
+                : isRightToLeft
+                ? 'row-reverse'
+                : 'row'
+            }
+          >
+            <HomeSection
+              isDarkMode={isDarkMode}
+              isRightToLeft={isRightToLeft}
+              blobStyle={
+                device === 'mobile' ? { top: 'auto', bottom: '0' } : blobStyle
+              }
+              currentTheme={device === 'mobile' ? isDarkMode : currentTheme}
+              sphereStyle={
+                device === 'mobile' ? { top: 'auto', bottom: '0' } : sphereStyle
+              }
+            />
+          </Container>
           <Container id="About" height="100vh">
             <AboutSection
               animateTransition={animateTransition}

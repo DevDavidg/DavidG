@@ -154,12 +154,24 @@ const Text: React.FC<TextProps> = (props) => {
       </span>
     );
 
-    return (
-      <>
-        {textContent}
-        {typingText.length > 0 && typingContent}
-      </>
-    );
+    return <>{props.text ? textContent : typingContent}</>;
+  };
+
+  const renderOutput = () => {
+    if (props.text || typingText.length > 0) {
+      return renderContent();
+    } else {
+      return (
+        <div
+          style={{
+            width,
+            height,
+            backgroundColor: props.theme === 'text-d' ? 'white' : 'black',
+            borderRadius: '10px',
+          }}
+        />
+      );
+    }
   };
 
   useEffect(() => {
@@ -170,17 +182,12 @@ const Text: React.FC<TextProps> = (props) => {
 
   return (
     <>
-      {props.text || typingText.length > 0 ? (
-        renderContent()
+      {showSkeleton ? (
+        <span className="skeleton-animation" style={textStyles}>
+          {'\u00A0'}
+        </span>
       ) : (
-        <div
-          style={{
-            width,
-            height,
-            backgroundColor: props.theme === 'text-d' ? 'white' : 'black',
-            borderRadius: '10px',
-          }}
-        />
+        renderOutput()
       )}
     </>
   );

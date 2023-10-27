@@ -1,6 +1,6 @@
 @import '/src/app/stylesheets/variables.sass';
 
-$dot-size: 10px;
+$dot-size: 0.625rem;
 $dot-transform: rotate(90deg);
 $sphere-animation-duration: 15s;
 $dot-animation-duration: 1s;
@@ -114,29 +114,29 @@ $dot-animation-duration: 1s;
   will-change: transform;
 
   &.l {
-    background: $color-w;
+    background: $w;
 
     &::before {
       content: '';
       position: absolute;
-      width: 40px;
+      width: 2.5rem;
       height: 1px;
       border-radius: 50%;
-      background: $color-w;
+      background: $w;
       top: 3px;
     }
   }
 
   &.d {
-    background: $color-b-p;
+    background: $d;
 
     &::before {
       content: '';
       position: absolute;
-      width: 40px;
+      width: 2.5rem;
       height: 1px;
       border-radius: 50%;
-      background: $color-b-p;
+      background: $d;
       top: 3px;
     }
   }

@@ -28,8 +28,8 @@ function Sphere(props: ISphereProps) {
   }, [props.theme]);
 
   const spokeStyle = {
-    '--width': props.width ?? '100px',
-    '--height': props.height ?? '100px',
+    '--width': props.width ?? '6.25',
+    '--height': props.height ?? '6.25',
   } as React.CSSProperties;
 
   useEffect(() => {

@@ -5,15 +5,17 @@ import Gif from './GifComponent';
 import Txt from '../Text';
 import Btn from '../Button';
 import Ctn from '../Container';
+import Spinner from '../Loading';
+import { useDevice } from '@/app/context/deviceContext';
 
-interface ProjectCardProps {
+export interface ProjectCardProps {
   gif: string;
   title: string;
   description: string;
   icons: string[];
   demoUrl: string;
   github: string;
-  theme: 'l' | 'd';
+  theme?: 'l' | 'd';
   cardLang: string[];
   filter?: string;
 }
@@ -25,13 +27,44 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   icons,
   demoUrl,
   github,
-  theme,
+  theme = 'l',
   cardLang,
   filter,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isRendered, setIsRendered] = useState(true);
   const [animClass, setAnimClass] = useState('');
+  const device = useDevice();
+
+  const [error, setError] = useState<Array<boolean>>(
+    Array(icons.length).fill(false)
+  );
+
+  const remToPx = (rem: number) =>
+    rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+  const renderIcon = (icon: string, index: number) =>
+    error[index] ? (
+      <Spinner
+        height={'1.25rem'}
+        loading={true}
+        theme={theme}
+        borderWidth={2}
+      />
+    ) : (
+      <Img
+        src={`/icons/${icon}.svg`}
+        alt={`${icon} icon`}
+        width={remToPx(1.25)}
+        height={remToPx(1.25)}
+        onError={() => {
+          const newError = [...error];
+          newError[index] = true;
+          setError(newError);
+        }}
+        key={icon}
+      />
+    );
 
   useEffect(() => {
     if (filter && !cardLang.includes(filter)) {
@@ -46,62 +79,73 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   if (!isRendered) return null;
 
   return (
-    <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`${s.card} ${theme === 'd' ? s.dark : s.light} ${
-        s[animClass]
-      } ${animClass}`}
-      id={cardLang.join('')}
-    >
-      <Gif src={gif} isHovered={isHovered} />
-      <Ctn
-        direction="column"
-        display="flex"
-        padding="1rem"
-        gap="1rem"
-        className={s.textContainer}
-        justify="space-between"
-        height="100%"
+    <>
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`${s.card} ${theme === 'd' ? s.dark : s.light} ${
+          s[animClass]
+        } ${animClass}`}
+        id={cardLang.join('')}
       >
-        <Ctn justify="space-between" display="flex" width="100%" align="center">
-          <Txt
-            text={title}
-            theme={theme === 'l' ? 'text-d' : 'text-p'}
-            size="1.3rem"
-            weight="bold"
-          />
-          <Ctn display="flex" gap="0.5rem" align="center" justify="center">
-            {icons.map((icon) => (
-              <Img
-                src={`/icons/${icon}.svg`}
-                alt={`${icon} icon`}
-                width={20}
-                height={20}
-                key={icon}
-              />
-            ))}
+        <Gif src={gif} isHovered={isHovered} theme={theme} />
+        <Ctn
+          direction="column"
+          display="flex"
+          padding="1rem"
+          gap="1rem"
+          className={s.textContainer}
+          justify="space-between"
+          height="100%"
+        >
+          <Ctn
+            justify="space-between"
+            display="flex"
+            width="100%"
+            align={
+              device === 'mobile' || device === 'm-device' ? 'start' : 'center'
+            }
+            direction={
+              device === 'mobile' || device === 'm-device' ? 'column' : 'row'
+            }
+            height="3.875rem"
+          >
+            <Txt
+              text={title}
+              theme={theme === 'l' ? 'text-d' : 'text-p'}
+              size="1.3rem"
+              weight="bold"
+            />
+            <Ctn display="flex" gap="0.5rem" align="center" justify="center">
+              {icons.map((icon) => renderIcon(icon, icons.indexOf(icon)))}
+            </Ctn>
           </Ctn>
+          <Txt
+            text={description}
+            theme={theme === 'l' ? 'text-d' : 'text-p'}
+            height="4.6875rem"
+          />
+          <div className={s.buttonContainer}>
+            <Btn
+              theme={theme}
+              href={demoUrl}
+              text={demoUrl === '' ? 'Private' : 'Demo'}
+              fontSize="1.2rem"
+              disabled={demoUrl === ''}
+              width="100%"
+            />
+            <Btn
+              theme={theme}
+              href={github}
+              text={github === '' ? 'Private' : 'Github'}
+              fontSize="1.2rem"
+              width="100%"
+              disabled={github === ''}
+            />
+          </div>
         </Ctn>
-        <Txt text={description} theme={theme === 'l' ? 'text-d' : 'text-p'} />
-        <div className={s.buttonContainer}>
-          <Btn
-            theme={theme}
-            href={demoUrl}
-            text="Demo"
-            fontSize="1.2rem"
-            width="100%"
-          />
-          <Btn
-            theme={theme}
-            href={github}
-            text="Github"
-            fontSize="1.2rem"
-            width="100%"
-          />
-        </div>
-      </Ctn>
-    </div>
+      </div>
+    </>
   );
 };
 

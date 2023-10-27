@@ -3,6 +3,8 @@ import Container from '@/app/components/Container';
 import ProjectCard from '@/app/components/ProjectCard';
 import Text from '@/app/components/Text';
 import FilterCard from '@/app/components/FilterCard';
+import { addSpace } from '@/app/services/functions';
+import { projectData } from '@/app/services/data';
 
 interface ProjectsSectionProps {
   animateTransition: boolean;
@@ -29,7 +31,11 @@ const ProjectsSection = ({
       direction="column"
       height="100vh"
       id="Project"
-      className={animateTransition ? 'transition-animation' : ''}
+      className={addSpace(
+        animateTransition
+          ? 'transition-animation'
+          : 'transition-animation-right'
+      )}
     >
       <FilterCard
         onFilter={handleFilter}
@@ -85,45 +91,27 @@ const ProjectsSection = ({
         display="flex"
         direction={isRightToLeft ? 'row-reverse' : 'row'}
         gap="1rem"
-        className={animateTransition ? 'transition-animation' : ''}
-        styles={{
-          minHeight: '400px !important',
-        }}
+        className={addSpace(
+          animateTransition
+            ? 'transition-animation'
+            : 'transition-animation-right'
+        )}
         wrap
       >
-        <ProjectCard
-          demoUrl="https://www.google.com"
-          github="https://www.google.com"
-          title="Project 1"
-          description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
-          gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
-          theme={isDarkMode ? 'l' : 'd'}
-          icons={['react', 'angular', 'haml']}
-          cardLang={['React', 'Angular', 'Haml']}
-          filter={filter}
-        />
-        <ProjectCard
-          demoUrl="https://www.google.com"
-          github="https://www.google.com"
-          title="Project 1"
-          description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
-          gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
-          theme={isDarkMode ? 'l' : 'd'}
-          icons={['react', 'angular', 'haml']}
-          cardLang={['Vue', 'Angular', 'Haml']}
-          filter={filter}
-        />
-        <ProjectCard
-          demoUrl="https://www.google.com"
-          github="https://www.google.com"
-          title="Project 1"
-          description="SDAKFSDJLKFJLHKDSF SDFSDKJFSDLJFKJSDH FSDFHJHKJKJLFD."
-          gif="/dancing-animated-cute-duck-dbzlbpbscz1jao0v.gif"
-          theme={isDarkMode ? 'l' : 'd'}
-          icons={['react', 'angular', 'haml']}
-          cardLang={['Vue', 'Angular', 'Haml']}
-          filter={filter}
-        />
+        {projectData.map((project, index) => (
+          <ProjectCard
+            key={index}
+            demoUrl={project.demoUrl}
+            github={project.github}
+            title={project.title}
+            description={project.description}
+            gif={project.gif}
+            theme={isDarkMode ? 'l' : 'd'}
+            icons={project.icons}
+            cardLang={project.cardLang}
+            filter={filter}
+          />
+        ))}
       </Container>
     </Container>
   );
