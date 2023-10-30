@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Container from '@/app/components/Container';
 import ProjectCard from '@/app/components/ProjectCard';
 import Text from '@/app/components/Text';
@@ -22,6 +22,23 @@ const ProjectsSection = ({
   const handleFilter = (lang: any) => {
     setFilter(lang);
   };
+
+  const filteredProjectData = useMemo(() => {
+    return projectData.filter((project) => {
+      return (
+        (!isRightToLeft &&
+          project.isDesign &&
+          (!filter || project.cardLang.includes(filter))) ||
+        (isRightToLeft &&
+          !project.isDesign &&
+          (!filter || project.cardLang.includes(filter)))
+      );
+    });
+  }, [isRightToLeft, filter]);
+
+  useEffect(() => {
+    setFilter('');
+  }, [isRightToLeft]);
 
   return (
     <Container
@@ -98,9 +115,9 @@ const ProjectsSection = ({
         )}
         wrap
       >
-        {projectData.map((project, index) => (
+        {filteredProjectData.map((project) => (
           <ProjectCard
-            key={index}
+            key={project.title}
             demoUrl={project.demoUrl}
             github={project.github}
             title={project.title}
@@ -110,6 +127,7 @@ const ProjectsSection = ({
             icons={project.icons}
             cardLang={project.cardLang}
             filter={filter}
+            isDesign={project.isDesign}
           />
         ))}
       </Container>

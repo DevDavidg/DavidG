@@ -49,3 +49,15 @@ export const calculateBlobStyle = (scrollY: number, translateXValue: string) => 
 export function addSpace(...classes: string[]) {
     return classes.map(cls => `${cls} `).join('');
 }
+
+export const getDirection = (isRightToLeft: boolean) =>
+    isRightToLeft ? 'row' : 'row-reverse';
+export const getAlign = (isRightToLeft: boolean) => (isRightToLeft ? 'start' : 'end');
+export const getTextTheme = (isDarkMode: boolean) =>
+    isDarkMode ? 'text-d' : 'text-p';
+export const getTextStyle = (isRightToLeft: boolean) => ({
+    textAlign: isRightToLeft ? 'start' : 'end',
+});
+
+export const getTheme = (isDarkMode: boolean) => (isDarkMode ? 'd' : 'l');
+

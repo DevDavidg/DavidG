@@ -18,6 +18,7 @@ export interface ProjectCardProps {
   theme?: 'l' | 'd';
   cardLang: string[];
   filter?: string;
+  isDesign?: boolean;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -30,6 +31,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   theme = 'l',
   cardLang,
   filter,
+  isDesign,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isRendered, setIsRendered] = useState(true);
@@ -40,31 +42,49 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     Array(icons.length).fill(false)
   );
 
+  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
+
   const remToPx = (rem: number) =>
     rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 
-  const renderIcon = (icon: string, index: number) =>
-    error[index] ? (
+  const renderIcon = (icon: string, index: number) => {
+    const isIconHovered = icon === hoveredIcon;
+
+    return error[index] ? (
       <Spinner
         height={'1.25rem'}
         loading={true}
         theme={theme}
         borderWidth={2}
+        key={`${icon}-${index}`}
       />
     ) : (
-      <Img
-        src={`/icons/${icon}.svg`}
-        alt={`${icon} icon`}
-        width={remToPx(1.25)}
-        height={remToPx(1.25)}
-        onError={() => {
-          const newError = [...error];
-          newError[index] = true;
-          setError(newError);
-        }}
-        key={icon}
-      />
+      <div
+        className={s.iconWrapper}
+        onMouseEnter={() => setHoveredIcon(icon)}
+        onMouseLeave={() => setHoveredIcon(null)}
+        key={`${icon}-${index}`}
+      >
+        <Img
+          src={`/icons/${icon}.svg`}
+          alt={`${icon} icon`}
+          width={remToPx(1.25)}
+          height={remToPx(1.25)}
+          className={s.icon}
+          onError={() => {
+            const newError = [...error];
+            newError[index] = true;
+            setError(newError);
+          }}
+        />
+        {isIconHovered && (
+          <div className={s.dropdown}>
+            <Txt text={icon} theme={'text-d'} size=".6rem" />
+          </div>
+        )}
+      </div>
     );
+  };
 
   useEffect(() => {
     if (filter && !cardLang.includes(filter)) {
@@ -116,7 +136,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               size="1.3rem"
               weight="bold"
             />
-            <Ctn display="flex" gap="0.5rem" align="center" justify="center">
+            <Ctn
+              display="flex"
+              gap={icons.length >= 7 ? '.3rem' : '.5rem'}
+              align="center"
+              justify="center"
+              className={s.iconContainer}
+            >
               {icons.map((icon) => renderIcon(icon, icons.indexOf(icon)))}
             </Ctn>
           </Ctn>

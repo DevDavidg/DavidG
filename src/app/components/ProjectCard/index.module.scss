@@ -4,7 +4,6 @@
   height: auto;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
-  overflow: hidden;
   transition: transform 0.3s;
   position: relative;
   display: flex;
@@ -25,7 +24,6 @@
   .icon {
     width: 1.25rem;
     height: 1.25rem;
-    margin-left: 0.5rem;
   }
 
   .gifContainer {
@@ -52,19 +50,11 @@
   &.dark {
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.633);
     background-color: $d-card;
-
-    .icon {
-      filter: invert(1);
-    }
   }
 
   &.light {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
     background-color: $w;
-
-    .icon {
-      filter: none;
-    }
   }
 }
 
@@ -102,4 +92,22 @@
     transform: scale(0);
     opacity: 0;
   }
+}
+
+.dropdown {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  display: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  border-radius: 0.3rem;
+}
+
+.iconWrapper:hover .dropdown {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0px);
 }

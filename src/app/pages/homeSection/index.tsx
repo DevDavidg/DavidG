@@ -4,7 +4,15 @@ import Button from '@/app/components/Button';
 import Blob from '@/app/components/Blob';
 import Text from '@/app/components/Text';
 import { useDevice } from '@/app/context/deviceContext';
+import { getTextTheme, getTheme } from '@/app/services/functions';
 const LazySphere = lazy(() => import('@/app/components/Sphere'));
+
+const getAlign = (device: string, isRightToLeft: boolean) => {
+  if (device === 'mobile') {
+    return 'center';
+  }
+  return isRightToLeft ? 'start' : 'end';
+};
 
 const HomeSection = ({
   isDarkMode,
@@ -20,6 +28,10 @@ const HomeSection = ({
   currentTheme: boolean;
 }) => {
   const device = useDevice();
+  const theme = getTheme(isDarkMode);
+  const textTheme = getTextTheme(isDarkMode);
+  const align = getAlign(device, isRightToLeft);
+
   return (
     <>
       <Container
@@ -30,7 +42,7 @@ const HomeSection = ({
         height={device === 'mobile' ? '50%' : 'auto'}
       >
         <Blob
-          theme={isDarkMode ? 'd' : 'l'}
+          theme={theme}
           width="37.5rem"
           height="31.25rem"
           top="50%"
@@ -48,13 +60,13 @@ const HomeSection = ({
         display="flex"
         direction="column"
         justify="center"
-        align={device === 'mobile' ? 'center' : isRightToLeft ? 'start' : 'end'}
+        align={align}
         width={device === 'mobile' ? '100%' : '50%'}
         height={device === 'mobile' ? '10%' : '100%'}
         gap="0.31rem"
       >
         <Text
-          theme={isDarkMode ? 'text-d' : 'text-p'}
+          theme={textTheme}
           width="auto"
           height="1.43rem"
           text={
@@ -67,7 +79,7 @@ const HomeSection = ({
           style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
         />
         <Text
-          theme={isDarkMode ? 'text-d' : 'text-p'}
+          theme={textTheme}
           width="26.25rem"
           height="5.62rem"
           text={'David Guillen'}
@@ -75,7 +87,7 @@ const HomeSection = ({
           style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
         />
         <Text
-          theme={isDarkMode ? 'text-d' : 'text-p'}
+          theme={textTheme}
           width="15.62rem"
           height="1.56rem"
           typingText={
@@ -108,10 +120,7 @@ const HomeSection = ({
           typingInterval={300}
           deleteInterval={200}
           margin="0 0 3.12rem 0"
-          style={{
-            textAlign:
-              device === 'mobile' ? 'center' : isRightToLeft ? 'start' : 'end',
-          }}
+          style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
         />
         <Container display="flex" gap="3.12rem">
           <Button

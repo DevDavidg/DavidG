@@ -6,7 +6,7 @@ import { simpleHash } from '@/app/services/functions';
 import { useDevice } from '@/app/context/deviceContext';
 
 interface FilteredCardProps {
-  onFilter: Function;
+  onFilter: (lang: string) => void;
   lang: string[];
 }
 
@@ -114,7 +114,7 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             {new Array(Math.ceil(lang.length / 6)).fill(0).map((_, idx) => (
               <div
-                key={`indicator-${simpleHash(lang.join('-'))}-${idx}`}
+                key={simpleHash(idx.toString())}
                 style={{
                   width: '0.7rem',
                   height: '0.7rem',

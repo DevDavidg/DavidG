@@ -4,7 +4,13 @@ import React from 'react';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { addSpace } from '@/app/services/functions';
+import {
+  addSpace,
+  getAlign,
+  getDirection,
+  getTextStyle,
+  getTextTheme,
+} from '@/app/services/functions';
 import theme from '@/app/stylesheets/theme.module.sass';
 
 const AboutSection = ({
@@ -16,10 +22,10 @@ const AboutSection = ({
   isRightToLeft: boolean;
   isDarkMode: boolean;
 }) => {
-  const direction = isRightToLeft ? 'row' : 'row-reverse';
-  const align = isRightToLeft ? 'start' : 'end';
-  const textTheme = isDarkMode ? 'text-d' : 'text-p';
-  const textStyle = { textAlign: isRightToLeft ? 'start' : 'end' };
+  const direction = getDirection(isRightToLeft);
+  const align = getAlign(isRightToLeft);
+  const textTheme = getTextTheme(isDarkMode);
+  const textStyle = getTextStyle(isRightToLeft);
 
   return (
     <Container

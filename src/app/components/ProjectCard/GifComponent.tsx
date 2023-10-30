@@ -119,8 +119,8 @@ const GifComponent: React.FC<GifComponentProps> = ({
           muted
           style={{
             display: isLoaded ? 'block' : 'none',
-            width: '18.75rem',
-            height: '9.5rem',
+            width: remToPx(18.75),
+            height: remToPx(9.5),
             filter: isHovered ? 'none' : 'grayscale(100%)',
             objectFit: 'cover',
           }}
