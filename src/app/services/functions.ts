@@ -61,3 +61,5 @@ export const getTextStyle = (isRightToLeft: boolean) => ({
 
 export const getTheme = (isDarkMode: boolean) => (isDarkMode ? 'd' : 'l');
 
+export const remToPx = (rem: number) =>
+    rem * parseFloat(getComputedStyle(document.documentElement).fontSize);

@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   animation-duration: 0.5s;
+  overflow: hidden;
 
   &:hover {
     transform: scale(1.05);
@@ -110,4 +111,10 @@
   display: flex;
   opacity: 1;
   transform: translateY(0px);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -12,6 +12,7 @@ import {
   getTextTheme,
 } from '@/app/services/functions';
 import theme from '@/app/stylesheets/theme.module.sass';
+import { useDevice } from '@/app/context/deviceContext';
 
 const AboutSection = ({
   animateTransition,
@@ -26,10 +27,11 @@ const AboutSection = ({
   const align = getAlign(isRightToLeft);
   const textTheme = getTextTheme(isDarkMode);
   const textStyle = getTextStyle(isRightToLeft);
+  const device = useDevice();
 
   return (
     <Container
-      height="100vh"
+      height={device === 'mobile' ? 'auto' : '100vh'}
       id="about"
       display="flex"
       className={addSpace(
@@ -41,7 +43,7 @@ const AboutSection = ({
       padding={'4.375rem 0 0 0'}
     >
       <Container
-        width="50%"
+        width={device === 'mobile' ? '100%' : '50%'}
         height="100%"
         display="flex"
         justify="center"

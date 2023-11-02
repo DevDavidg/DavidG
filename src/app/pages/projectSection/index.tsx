@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Container from '@/app/components/Container';
-import ProjectCard from '@/app/components/ProjectCard';
+import ProjectCard, { ProjectCardProps } from '@/app/components/ProjectCard';
 import Text from '@/app/components/Text';
 import FilterCard from '@/app/components/FilterCard';
 import { addSpace } from '@/app/services/functions';
-import { projectData } from '@/app/services/data';
+import { useDevice } from '@/app/context/deviceContext';
 
 interface ProjectsSectionProps {
   animateTransition: boolean;
@@ -18,10 +18,28 @@ const ProjectsSection = ({
   isDarkMode,
 }: ProjectsSectionProps) => {
   const [filter, setFilter] = useState('');
+  const [projectData, setProjectData] = useState<ProjectCardProps[]>([]);
+  const device = useDevice();
 
   const handleFilter = (lang: any) => {
     setFilter(lang);
   };
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch(
+        'https://drfapiprojects.onrender.com/projectcards/'
+      );
+      const data = await response.json();
+      setProjectData(data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   const filteredProjectData = useMemo(() => {
     return projectData.filter((project) => {
@@ -34,7 +52,7 @@ const ProjectsSection = ({
           (!filter || project.cardLang.includes(filter)))
       );
     });
-  }, [isRightToLeft, filter]);
+  }, [isRightToLeft, filter, projectData]);
 
   useEffect(() => {
     setFilter('');
@@ -46,7 +64,7 @@ const ProjectsSection = ({
       justify="center"
       align="center"
       direction="column"
-      height="100vh"
+      height={device === 'mobile' ? 'auto' : '100vh'}
       id="Project"
       className={addSpace(
         animateTransition
@@ -66,16 +84,16 @@ const ProjectsSection = ({
                 'CSS',
                 'JS',
                 'TS',
-                'JQuery',
-                'SASS',
+                'Django',
+                'DRF',
+                'Python',
+                'Sass',
                 'Less',
                 'Preact',
                 'Pug',
                 'Haml',
                 'Next',
-                'Nuxt',
-                'styled-components',
-                'styled-system',
+                'StyledComponents',
                 'Tailwind',
                 'Bootstrap',
                 'Material-UI',
@@ -107,7 +125,7 @@ const ProjectsSection = ({
         justify="center"
         display="flex"
         direction={isRightToLeft ? 'row-reverse' : 'row'}
-        gap="1rem"
+        gap={device === 'mobile' ? '2rem' : '1rem'}
         className={addSpace(
           animateTransition
             ? 'transition-animation'
@@ -127,7 +145,6 @@ const ProjectsSection = ({
             icons={project.icons}
             cardLang={project.cardLang}
             filter={filter}
-            isDesign={project.isDesign}
           />
         ))}
       </Container>

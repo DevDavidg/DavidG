@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import NextImage from 'next/image';
 import Spinner from '../Loading';
+import { remToPx } from '@/app/services/functions';
 
 interface GifComponentProps {
   src: string;
@@ -19,14 +20,8 @@ const GifComponent: React.FC<GifComponentProps> = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const isGifv = src.endsWith('.gifv');
-  const fileSrc = isGifv ? src.replace('.gifv', '.mp4') : src;
-
-  const remToPx = (rem: number) => {
-    return (
-      rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
-    );
-  };
+  const isVideo = src.endsWith('.gifv') || src.endsWith('.mp4');
+  const fileSrc = isVideo ? src.replace('.gifv', '.mp4') : src;
 
   useEffect(() => {
     const processMedia = (media: HTMLImageElement | HTMLVideoElement) => {
@@ -57,7 +52,7 @@ const GifComponent: React.FC<GifComponentProps> = ({
       setIsLoaded(true);
     };
 
-    if (isGifv) {
+    if (isVideo) {
       const video = videoRef.current;
       if (video) {
         video.onloadedmetadata = () => processMedia(video);
@@ -70,7 +65,7 @@ const GifComponent: React.FC<GifComponentProps> = ({
       img.onload = () => processMedia(img);
       img.src = fileSrc;
     }
-  }, [fileSrc, isGifv]);
+  }, [fileSrc, isVideo]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -107,12 +102,12 @@ const GifComponent: React.FC<GifComponentProps> = ({
       <canvas
         ref={canvasRef}
         style={{
-          display: isHovered || !isLoaded || isGifv ? 'none' : 'block',
+          display: isHovered || !isLoaded || isVideo ? 'none' : 'block',
           width: remToPx(18.75),
           height: remToPx(9.5),
         }}
       />
-      {isGifv && (
+      {isVideo && (
         <video
           ref={videoRef}
           loop
@@ -126,7 +121,7 @@ const GifComponent: React.FC<GifComponentProps> = ({
           }}
         />
       )}
-      {!isGifv && isLoaded && (
+      {!isVideo && isLoaded && (
         <NextImage
           src={fileSrc}
           width={dimensions.width}
