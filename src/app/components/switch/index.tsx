@@ -1,12 +1,7 @@
 import './index.sass';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTheme } from '../../context/darkLightModeContext';
-
-interface SwitchProps {
-  theme?: 'p' | 'd';
-  style?: React.CSSProperties;
-  onChange?: () => void;
-}
+import { SwitchProps } from '@/app/services/models';
 
 const Switch: React.FC<SwitchProps> = React.memo(function Switch({
   theme = 'p',

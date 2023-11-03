@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import themes from '../../stylesheets/theme.module.sass';
-
-interface SpinnerProps {
-  loading: boolean;
-  background?: boolean;
-  height?: string | number;
-  bgWidth?: string | number;
-  bgHeight?: string | number;
-  theme?: 'l' | 'd';
-  borderWidth?: string | number;
-}
+import { SpinnerProps } from '@/app/services/models';
 
 const Spinner: React.FC<SpinnerProps> = ({
   loading,

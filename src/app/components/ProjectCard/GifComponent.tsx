@@ -2,12 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import NextImage from 'next/image';
 import Spinner from '../Loading';
 import { remToPx } from '@/app/services/functions';
-
-interface GifComponentProps {
-  src: string;
-  isHovered: boolean;
-  theme?: 'l' | 'd';
-}
+import { GifComponentProps } from '@/app/services/models';
 
 const GifComponent: React.FC<GifComponentProps> = ({
   src,

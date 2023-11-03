@@ -8,29 +8,7 @@ import Ctn from '../Container';
 import Spinner from '../Loading';
 import { useDevice } from '@/app/context/deviceContext';
 import { remToPx } from '@/app/services/functions';
-
-export interface ProjectCardProps {
-  gif: string;
-  title: string;
-  description: string;
-  demoUrl: string;
-  github: string;
-  theme?: 'l' | 'd';
-  icons: string[] | string;
-  cardLang: string[] | string;
-  filter?: string;
-  isDesign?: boolean;
-}
-
-interface RenderIconProps {
-  icon: string;
-  index: number;
-  error: boolean[];
-  setError: React.Dispatch<React.SetStateAction<boolean[]>>;
-  theme: 'l' | 'd';
-  hoveredIcon: string | null;
-  setHoveredIcon: React.Dispatch<React.SetStateAction<string | null>>;
-}
+import { ProjectCardProps, RenderIconProps } from '@/app/services/models';
 
 const RenderIcon: React.FC<RenderIconProps> = ({
   icon,

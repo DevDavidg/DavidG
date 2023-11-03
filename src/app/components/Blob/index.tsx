@@ -2,15 +2,7 @@ import React from 'react';
 import './index.scss';
 import '../../stylesheets/variables.sass';
 import theme from '../../stylesheets/theme.module.sass';
-
-interface BlobProps {
-  theme?: 'l' | 'd';
-  width?: string;
-  height?: string;
-  style?: React.CSSProperties;
-  top?: string;
-  left?: string;
-}
+import { BlobProps } from '@/app/services/models';
 
 const Blob: React.FC<BlobProps> = (props) => {
   const style = {

@@ -1,12 +1,6 @@
 import React, { useMemo, useRef, useEffect, useState } from 'react';
 import './styles.scss';
-
-interface ISphereProps {
-  width?: string;
-  height?: string;
-  theme: 'l' | 'd';
-  style: React.CSSProperties;
-}
+import { ISphereProps } from '@/app/services/models';
 
 function Sphere(props: ISphereProps) {
   const [isVisible, setIsVisible] = useState(false);

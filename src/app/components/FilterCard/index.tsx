@@ -4,11 +4,7 @@ import { useTheme } from '@/app/context/darkLightModeContext';
 import C from '../Container';
 import { simpleHash } from '@/app/services/functions';
 import { useDevice } from '@/app/context/deviceContext';
-
-interface FilteredCardProps {
-  onFilter: (lang: string) => void;
-  lang: string[];
-}
+import { FilteredCardProps } from '@/app/services/models';
 
 const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
   const device = useDevice();
@@ -113,7 +109,7 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
           </button>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             {new Array(Math.ceil(lang.length / 6)).fill(0).map((_, idx) => (
-              <div
+              <button
                 key={simpleHash(idx.toString())}
                 style={{
                   width: '0.7rem',
@@ -122,6 +118,7 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
                   background:
                     idx === Math.floor(currentSlide / 6) ? 'black' : 'grey',
                   cursor: 'pointer',
+                  border: 'none',
                 }}
                 onClick={() => setCurrentSlide(idx * 6)}
               />

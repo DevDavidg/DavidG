@@ -1,31 +1,5 @@
+import { ContainerProps } from '@/app/services/models';
 import './index.sass';
-
-interface ContainerProps {
-  children: React.JSX.Element | React.JSX.Element[];
-  height?: string;
-  width?: string;
-  padding?: string | React.CSSProperties;
-  theme?: 'l' | 'd';
-  align?: 'start' | 'center' | 'end';
-  justify?:
-    | 'start'
-    | 'center'
-    | 'end'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly';
-  wrap?: boolean;
-  display?: 'flex' | 'block';
-  direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
-  className?: string;
-  id?: string;
-  gap?: string;
-  styles?: React.CSSProperties;
-  ref?: React.RefObject<HTMLDivElement>;
-  href?: string;
-  transform?: string;
-  transition?: string;
-}
 
 const Container: React.FC<ContainerProps> = (props) => {
   const style = {

@@ -1,22 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './index.sass';
-
-interface TextProps {
-  text?: string | React.JSX.Element;
-  theme?: 'text-p' | 'text-d' | 'text-default';
-  size?: 's' | 'sm' | 'm' | 'l' | 'xl' | `${number}${'px' | 'rem'}`;
-  weight?: 'semibold' | 'light' | 'regular' | 'bold' | 'bolder';
-  align?: 'left' | 'center' | 'right';
-  margin?: string;
-  padding?: string;
-  width?: string;
-  height?: string;
-  style?: React.CSSProperties;
-  href?: string;
-  typingText?: string[];
-  typingInterval?: number;
-  deleteInterval?: number;
-}
+import { TextProps } from '@/app/services/models';
 
 const Text: React.FC<TextProps> = (props) => {
   const {

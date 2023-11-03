@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Container from '@/app/components/Container';
-import ProjectCard, { ProjectCardProps } from '@/app/components/ProjectCard';
+import ProjectCard from '@/app/components/ProjectCard';
 import Text from '@/app/components/Text';
 import FilterCard from '@/app/components/FilterCard';
 import { addSpace } from '@/app/services/functions';
 import { useDevice } from '@/app/context/deviceContext';
-
-interface ProjectsSectionProps {
-  animateTransition: boolean;
-  isRightToLeft: boolean;
-  isDarkMode: boolean;
-}
+import { ProjectCardProps, ProjectsSectionProps } from '@/app/services/models';
 
 const ProjectsSection = ({
   animateTransition,
