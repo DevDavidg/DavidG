@@ -3,8 +3,8 @@ import React, { lazy } from 'react';
 import Blob from '@/app/components/Blob';
 import { useDevice } from '@/app/context/deviceContext';
 import { getTextTheme, getTheme } from '@/app/services/functions';
-import TextComponent from '@/app/components/Text';
-import ButtonComponent from '@/app/components/Button';
+import TextComponent from '@/app/components/TextComponent';
+import ButtonComponent from '@/app/components/ButtonComponent';
 const LazySphere = lazy(() => import('@/app/components/Sphere'));
 
 const getAlign = (device: string, isRightToLeft: boolean) => {

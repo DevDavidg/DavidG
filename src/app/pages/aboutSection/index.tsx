@@ -12,7 +12,7 @@ import {
 } from '@/app/services/functions';
 import theme from '@/app/stylesheets/theme.module.sass';
 import { useDevice } from '@/app/context/deviceContext';
-import TextComponent from '@/app/components/Text';
+import TextComponent from '@/app/components/TextComponent';
 
 const AboutSection = ({
   animateTransition,

@@ -5,10 +5,10 @@ import GifComponent from './GifComponent';
 import Container from '../Container';
 import Spinner from '../Loading';
 import { ProjectCardProps, RenderIconProps } from '@/app/services/models';
-import Button from '../Button';
+import Button from '../ButtonComponent';
 import { useDevice } from '@/app/context/deviceContext';
 import { remToPx } from '@/app/services/functions';
-import TextComponent from '../Text';
+import TextComponent from '../TextComponent';
 
 const RenderIcon = React.memo<RenderIconProps>(
   ({ icon, index, error, setError, theme, hoveredIcon, setHoveredIcon }) => {

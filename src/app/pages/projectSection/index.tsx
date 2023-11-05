@@ -5,7 +5,7 @@ import FilterCard from '@/app/components/FilterCard';
 import { addSpace } from '@/app/services/functions';
 import { useDevice } from '@/app/context/deviceContext';
 import { ProjectCardProps, ProjectsSectionProps } from '@/app/services/models';
-import TextComponent from '@/app/components/Text';
+import TextComponent from '@/app/components/TextComponent';
 
 const ProjectsSection = ({
   animateTransition,

@@ -3,7 +3,7 @@ import Container from '@/app/components/Container';
 import Switch from '@/app/components/switch';
 import { addSpace } from '@/app/services/functions';
 import './styles.sass';
-import TextComponent from '@/app/components/Text';
+import TextComponent from '@/app/components/TextComponent';
 
 type NavbarProps = {
   readonly isDarkMode: boolean;
