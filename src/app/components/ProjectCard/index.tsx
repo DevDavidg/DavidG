@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Img from 'next/image';
 import s from './index.module.scss';
-import Gif from './GifComponent';
-import Txt from '@/app/components/Text';
-import Btn from '@/app/components/Button';
-import Ctn from '../Container';
+import GifComponent from './GifComponent';
+import Container from '../Container';
 import Spinner from '../Loading';
+import { ProjectCardProps, RenderIconProps } from '@/app/services/models';
+import Button from '../Button';
 import { useDevice } from '@/app/context/deviceContext';
 import { remToPx } from '@/app/services/functions';
-import { ProjectCardProps, RenderIconProps } from '@/app/services/models';
+import TextComponent from '../Text';
 
 const RenderIcon = React.memo<RenderIconProps>(
   ({ icon, index, error, setError, theme, hoveredIcon, setHoveredIcon }) => {
@@ -49,7 +49,7 @@ const RenderIcon = React.memo<RenderIconProps>(
         />
         {isIconHovered && (
           <div className={s.dropdown}>
-            <Txt text={icon} theme={'text-d'} size=".6rem" />
+            <TextComponent text={icon} theme={'text-d'} size=".6rem" />
           </div>
         )}
       </div>
@@ -121,8 +121,8 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
         } ${animClass}`}
         id={Array.isArray(parsedCardLang) ? parsedCardLang.join('') : ''}
       >
-        <Gif src={gif} isHovered={isHovered} theme={theme} />
-        <Ctn
+        <GifComponent src={gif} isHovered={isHovered} theme={theme} />
+        <Container
           direction="column"
           display="flex"
           padding="1rem"
@@ -131,7 +131,7 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
           justify="space-between"
           height="100%"
         >
-          <Ctn
+          <Container
             justify="space-between"
             display="flex"
             width="100%"
@@ -143,13 +143,13 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
             }
             height="3.875rem"
           >
-            <Txt
+            <TextComponent
               text={title}
               theme={theme === 'l' ? 'text-d' : 'text-p'}
               size="1.3rem"
               weight="bold"
             />
-            <Ctn
+            <Container
               display="flex"
               gap={
                 Array.isArray(parsedIcons) && parsedIcons.length >= 7
@@ -172,15 +172,15 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
                   key={`${icon}`}
                 />
               ))}
-            </Ctn>
-          </Ctn>
-          <Txt
+            </Container>
+          </Container>
+          <TextComponent
             text={description}
             theme={theme === 'l' ? 'text-d' : 'text-p'}
             height="4.6875rem"
           />
           <div className={s.buttonContainer}>
-            <Btn
+            <Button
               theme={theme}
               href={demoUrl}
               text={demoUrl === '' ? 'Private' : 'Demo'}
@@ -189,7 +189,7 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
               width="100%"
               ariaLabel="Demo"
             />
-            <Btn
+            <Button
               theme={theme}
               href={github}
               text={github === '' ? 'Private' : 'Github'}
@@ -199,7 +199,7 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
               ariaLabel="Github"
             />
           </div>
-        </Ctn>
+        </Container>
       </div>
     );
   }

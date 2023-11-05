@@ -83,7 +83,7 @@ const ButtonContent: React.FC<ButtonContentProps> = ({
   );
 };
 
-const Button: React.FC<ButtonProps> = React.memo((props) => {
+const ButtonComponent: React.FC<ButtonProps> = React.memo((props) => {
   const showSkeleton = useShowSkeleton();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -118,6 +118,6 @@ const Button: React.FC<ButtonProps> = React.memo((props) => {
   );
 });
 
-Button.displayName = 'Button';
+ButtonComponent.displayName = 'ButtonComponent';
 
-export default Button;
+export default ButtonComponent;

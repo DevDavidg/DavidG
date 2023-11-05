@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './index.sass';
 import { TextProps } from '@/app/services/models';
 
-const Text: React.FC<TextProps> = (props) => {
+const TextComponent: React.FC<TextProps> = (props) => {
   const {
     typingInterval = 100,
     deleteInterval = 90,
@@ -177,4 +177,4 @@ const Text: React.FC<TextProps> = (props) => {
   );
 };
 
-export default Text;
+export default TextComponent;
