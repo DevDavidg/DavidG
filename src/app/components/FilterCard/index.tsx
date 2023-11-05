@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import B from '../Button';
+import B from '@/app/components/Button';
 import { useTheme } from '@/app/context/darkLightModeContext';
 import C from '../Container';
 import { simpleHash } from '@/app/services/functions';
