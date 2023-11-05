@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Container from '@/app/components/Container';
 import ProjectCard from '@/app/components/ProjectCard';
-import Text from '@/app/components/Text';
 import FilterCard from '@/app/components/FilterCard';
 import { addSpace } from '@/app/services/functions';
 import { useDevice } from '@/app/context/deviceContext';
 import { ProjectCardProps, ProjectsSectionProps } from '@/app/services/models';
+import TextComponent from '@/app/components/Text';
 
 const ProjectsSection = ({
   animateTransition,
@@ -108,13 +108,13 @@ const ProjectsSection = ({
           display="flex"
           padding={'2rem 0'}
         >
-          <Text
+          <TextComponent
             text="My portfolio"
             theme={isDarkMode ? 'text-d' : 'text-p'}
             size="s"
             weight="semibold"
           />
-          <Text
+          <TextComponent
             text="Recent Projects"
             theme={isDarkMode ? 'text-d' : 'text-p'}
             size="l"

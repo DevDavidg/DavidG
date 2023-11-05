@@ -1,10 +1,10 @@
 import Container from '@/app/components/Container';
 import React, { lazy } from 'react';
-import Button from '@/app/components/Button';
 import Blob from '@/app/components/Blob';
-import Text from '@/app/components/Text';
 import { useDevice } from '@/app/context/deviceContext';
 import { getTextTheme, getTheme } from '@/app/services/functions';
+import TextComponent from '@/app/components/Text';
+import ButtonComponent from '@/app/components/Button';
 const LazySphere = lazy(() => import('@/app/components/Sphere'));
 
 const getAlign = (device: string, isRightToLeft: boolean) => {
@@ -65,7 +65,7 @@ const HomeSection = ({
         height={device === 'mobile' ? '10%' : '100%'}
         gap="0.31rem"
       >
-        <Text
+        <TextComponent
           theme={textTheme}
           width="auto"
           height="1.43rem"
@@ -78,7 +78,7 @@ const HomeSection = ({
           padding="0"
           style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
         />
-        <Text
+        <TextComponent
           theme={textTheme}
           width="26.25rem"
           height="5.62rem"
@@ -86,7 +86,7 @@ const HomeSection = ({
           size="xl"
           style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
         />
-        <Text
+        <TextComponent
           theme={textTheme}
           width="15.62rem"
           height="1.56rem"
@@ -123,7 +123,7 @@ const HomeSection = ({
           style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
         />
         <Container display="flex" gap="3.12rem">
-          <Button
+          <ButtonComponent
             theme={isDarkMode ? 'l' : 'd'}
             width="12.5rem"
             height="3.43rem"
@@ -132,7 +132,7 @@ const HomeSection = ({
             fontSize="1.5rem"
             ariaLabel="Projects"
           />
-          <Button
+          <ButtonComponent
             theme={isDarkMode ? 'l' : 'd'}
             width="12.5rem"
             height="3.43rem"

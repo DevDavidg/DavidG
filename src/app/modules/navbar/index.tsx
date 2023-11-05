@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Container from '@/app/components/Container';
 import Switch from '@/app/components/switch';
-import Text from '@/app/components/Text';
 import { addSpace } from '@/app/services/functions';
 import './styles.sass';
+import TextComponent from '@/app/components/Text';
 
 type NavbarProps = {
   readonly isDarkMode: boolean;
@@ -16,7 +16,7 @@ type NavbarProps = {
 const TextLinks = ({ isDarkMode }: { isDarkMode: boolean }) => (
   <>
     {['Home', 'About', 'Work'].map((text) => (
-      <Text
+      <TextComponent
         key={text}
         href={`#${text}`}
         theme={isDarkMode ? 'text-d' : 'text-p'}

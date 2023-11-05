@@ -1,5 +1,4 @@
 import Container from '@/app/components/Container';
-import Text from '@/app/components/Text';
 import React from 'react';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +12,7 @@ import {
 } from '@/app/services/functions';
 import theme from '@/app/stylesheets/theme.module.sass';
 import { useDevice } from '@/app/context/deviceContext';
+import TextComponent from '@/app/components/Text';
 
 const AboutSection = ({
   animateTransition,
@@ -56,7 +56,7 @@ const AboutSection = ({
           direction="column"
           align={align}
         >
-          <Text
+          <TextComponent
             theme={textTheme}
             width="7.68rem"
             height="1.93rem"
@@ -67,7 +67,7 @@ const AboutSection = ({
               } as React.CSSProperties
             }
           />
-          <Text
+          <TextComponent
             theme={textTheme}
             width="17.125rem"
             height="11.5rem"
@@ -81,7 +81,7 @@ const AboutSection = ({
             size="xl"
             weight="bold"
           />
-          <Text
+          <TextComponent
             theme={textTheme}
             width="17.125rem"
             height="3.75rem"
@@ -98,7 +98,7 @@ const AboutSection = ({
           />
         </Container>
         <Container padding={'0 0 2.75rem 0'}>
-          <Text
+          <TextComponent
             theme={textTheme}
             weight="semibold"
             width="6.25rem"
@@ -125,7 +125,7 @@ const AboutSection = ({
               icon={faLinkedin}
               style={{ color: !isDarkMode ? theme.w : theme.d }}
             />
-            <Text
+            <TextComponent
               theme={textTheme}
               width="4rem"
               height="1.56rem"
@@ -143,7 +143,7 @@ const AboutSection = ({
               icon={faGithub}
               style={{ color: !isDarkMode ? theme.w : theme.d }}
             />
-            <Text
+            <TextComponent
               theme={textTheme}
               width="3.43rem"
               height="1.56rem"
@@ -163,7 +163,7 @@ const AboutSection = ({
               icon={faEnvelope}
               style={{ color: !isDarkMode ? theme.w : theme.d }}
             />
-            <Text
+            <TextComponent
               theme={textTheme}
               width="3.43rem"
               height="1.56rem"
