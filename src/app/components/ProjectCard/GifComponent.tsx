@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import NextImage from 'next/image';
 import Spinner from '../Loading';
 import { remToPx } from '@/app/services/functions';
@@ -15,11 +15,17 @@ const GifComponent: React.FC<GifComponentProps> = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const isVideo = src.endsWith('.gifv') || src.endsWith('.mp4');
-  const fileSrc = isVideo ? src.replace('.gifv', '.mp4') : src;
+  const isVideo = useMemo(
+    () => src.endsWith('.gifv') || src.endsWith('.mp4'),
+    [src]
+  );
+  const fileSrc = useMemo(
+    () => (isVideo ? src.replace('.gifv', '.mp4') : src),
+    [isVideo, src]
+  );
 
-  useEffect(() => {
-    const processMedia = (media: HTMLImageElement | HTMLVideoElement) => {
+  const processMedia = useCallback(
+    (media: HTMLImageElement | HTMLVideoElement) => {
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext('2d');
       if (canvas && ctx && media.width > 0 && media.height > 0) {
@@ -45,8 +51,11 @@ const GifComponent: React.FC<GifComponentProps> = ({
       }
       setLoading(false);
       setIsLoaded(true);
-    };
+    },
+    []
+  );
 
+  useEffect(() => {
     if (isVideo) {
       const video = videoRef.current;
       if (video) {
@@ -60,7 +69,7 @@ const GifComponent: React.FC<GifComponentProps> = ({
       img.onload = () => processMedia(img);
       img.src = fileSrc;
     }
-  }, [fileSrc, isVideo]);
+  }, [fileSrc, isVideo, processMedia]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -114,7 +123,14 @@ const GifComponent: React.FC<GifComponentProps> = ({
             filter: isHovered ? 'none' : 'grayscale(100%)',
             objectFit: 'cover',
           }}
-        />
+        >
+          <track
+            kind="captions"
+            src={`/videos/${fileSrc.replace('.mp4', '.vtt')}`}
+            srcLang="es"
+            label="Español"
+          ></track>
+        </video>
       )}
       {!isVideo && isLoaded && (
         <NextImage
@@ -122,7 +138,7 @@ const GifComponent: React.FC<GifComponentProps> = ({
           width={dimensions.width}
           height={dimensions.height}
           className={isHovered ? 'colorGif' : ''}
-          alt=""
+          alt="gif"
           style={{
             display: isHovered && isLoaded ? 'block' : 'none',
             width: '18.75rem',

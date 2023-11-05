@@ -1,7 +1,8 @@
 type ThemeType = 'l' | 'd' | 'p';
-type DimensionProps<T = string> = {
-    width?: T;
-    height?: T;
+
+type DimensionProps = {
+    width?: string;
+    height?: string;
 };
 
 export interface CommonProps<T = ThemeType> extends DimensionProps {
@@ -33,13 +34,7 @@ export interface ContainerProps extends CommonProps {
     children: React.JSX.Element | React.JSX.Element[];
     padding?: string | React.CSSProperties;
     align?: 'start' | 'center' | 'end';
-    justify?:
-    | 'start'
-    | 'center'
-    | 'end'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly';
+    justify?: 'start' | 'center' | 'end' | 'space-between' | 'space-around' | 'space-evenly';
     wrap?: boolean;
     display?: 'flex' | 'block';
     direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
@@ -93,7 +88,7 @@ export interface RenderIconProps extends CommonProps {
 }
 
 export interface ISphereProps extends CommonProps {
-    style: React.CSSProperties;  // Overriding the style type here
+    style: React.CSSProperties;
 }
 
 export interface SwitchProps extends CommonProps<'p' | 'd'> {

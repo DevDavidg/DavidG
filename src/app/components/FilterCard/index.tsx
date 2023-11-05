@@ -82,6 +82,7 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
                 }),
               }}
               padding="0.6rem"
+              ariaLabel={`${l} filter`}
             />
           ))}
         </div>
@@ -104,6 +105,7 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
               fontSize: '2rem',
               cursor: 'pointer',
             }}
+            aria-label="previous slide"
           >
             &lt;
           </button>
@@ -121,6 +123,7 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
                   border: 'none',
                 }}
                 onClick={() => setCurrentSlide(idx * 6)}
+                aria-label={`slide ${idx + 1}`}
               />
             ))}
           </div>
@@ -132,6 +135,7 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
               fontSize: '2rem',
               cursor: 'pointer',
             }}
+            aria-label="next slide"
           >
             &gt;
           </button>

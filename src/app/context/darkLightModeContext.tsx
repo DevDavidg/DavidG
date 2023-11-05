@@ -17,7 +17,11 @@ const ThemeContext = createContext(
   }
 );
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function ThemeProvider({
+  children,
+}: {
+  readonly children: React.ReactNode;
+}) {
   const [isMounted, setIsMounted] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isRightToLeft, setIsRightToLeft] = useState(false);

@@ -130,6 +130,7 @@ const HomeSection = ({
             text="Projects"
             href="#Projects"
             fontSize="1.5rem"
+            ariaLabel="Projects"
           />
           <Button
             theme={isDarkMode ? 'l' : 'd'}
@@ -138,6 +139,7 @@ const HomeSection = ({
             href="#about"
             text="About"
             fontSize="1.5rem"
+            ariaLabel="About"
           />
         </Container>
       </Container>

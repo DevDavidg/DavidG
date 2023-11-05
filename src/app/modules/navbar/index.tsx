@@ -1,103 +1,109 @@
+import React, { useEffect, useState, useCallback } from 'react';
 import Container from '@/app/components/Container';
 import Switch from '@/app/components/switch';
 import Text from '@/app/components/Text';
-import React, { useEffect, useState } from 'react';
-import './styles.sass';
 import { addSpace } from '@/app/services/functions';
+import './styles.sass';
 
-function Navbar({
+type NavbarProps = {
+  readonly isDarkMode: boolean;
+  readonly toggleTheme: () => void;
+  readonly isRightToLeft: boolean;
+  readonly toggleDirection: () => void;
+  readonly animateTransition: boolean;
+};
+
+const TextLinks = ({ isDarkMode }: { isDarkMode: boolean }) => (
+  <>
+    {['Home', 'About', 'Work'].map((text) => (
+      <Text
+        key={text}
+        href={`#${text}`}
+        theme={isDarkMode ? 'text-d' : 'text-p'}
+        width="7.5rem"
+        text={text}
+      />
+    ))}
+  </>
+);
+
+const CommonSection = ({
+  isRightToLeft,
+  handleThemeChange,
+  isDarkMode,
+  animateTransition,
+}: {
+  isRightToLeft: boolean;
+  handleThemeChange: () => void;
+  isDarkMode: boolean;
+  animateTransition: boolean;
+}) => (
+  <Container
+    justify="space-between"
+    display="flex"
+    width="100%"
+    padding="1rem"
+    className={addSpace(
+      animateTransition ? 'transition-animation' : 'transition-animation-right'
+    )}
+  >
+    {isRightToLeft ? (
+      <>
+        <Container display="flex" gap="1.56rem">
+          <TextLinks isDarkMode={isDarkMode} />
+        </Container>
+        <Switch onChange={handleThemeChange} />
+      </>
+    ) : (
+      <>
+        <Switch onChange={handleThemeChange} />
+        <Container display="flex" gap="1.56rem">
+          <TextLinks isDarkMode={isDarkMode} />
+        </Container>
+      </>
+    )}
+  </Container>
+);
+
+const Navbar: React.FC<NavbarProps> = ({
   isDarkMode,
   toggleTheme,
   isRightToLeft,
   toggleDirection,
   animateTransition,
-}: {
-  isDarkMode: boolean;
-  toggleTheme: () => void;
-  style?: React.CSSProperties;
-  isRightToLeft: boolean;
-  toggleDirection: () => void;
-  animateTransition: boolean;
-}) {
-  const [isNavbarFixed, setIsNavbarFixed] = useState(false);
-  const [scrollingUp, setScrollingUp] = useState(false);
-  const [scrolledPastTop, setScrolledPastTop] = useState(false);
+}) => {
+  const [state, setState] = useState({
+    isNavbarFixed: false,
+    scrollingUp: false,
+    scrolledPastTop: false,
+  });
+
+  const { isNavbarFixed, scrollingUp, scrolledPastTop } = state;
 
   const someThresholdValue = 10;
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const scrolled = window.scrollY;
-    setScrollingUp(
-      scrolled > someThresholdValue && scrolled < window.innerHeight
-    );
-    setScrolledPastTop(scrolled > window.innerHeight);
-    setIsNavbarFixed(scrolled > someThresholdValue);
-  };
+    setState((prevState) => ({
+      ...prevState,
+      scrollingUp:
+        scrolled > someThresholdValue && scrolled < window.innerHeight,
+      scrolledPastTop: scrolled > window.innerHeight,
+      isNavbarFixed: scrolled > someThresholdValue,
+    }));
+  }, []);
 
-  const handleThemeChange = () => {
+  const handleThemeChange = useCallback(() => {
     toggleTheme();
     toggleDirection();
-  };
-
-  const commonTexts = (
-    <>
-      <Text
-        href="#"
-        theme={isDarkMode ? 'text-d' : 'text-p'}
-        width="7.5rem"
-        text={'Home'}
-      />
-      <Text
-        href="#About"
-        theme={isDarkMode ? 'text-d' : 'text-p'}
-        width="7.5rem"
-        text={'About'}
-      />
-      <Text
-        href="#Work"
-        theme={isDarkMode ? 'text-d' : 'text-p'}
-        width="7.5rem"
-        text={'Work'}
-      />
-    </>
-  );
-
-  const commonSection = (
-    <Container
-      justify="space-between"
-      display="flex"
-      width="100%"
-      padding="1rem"
-      className={addSpace(
-        animateTransition
-          ? 'transition-animation'
-          : 'transition-animation-right'
-      )}
-    >
-      {isRightToLeft ? (
-        <>
-          <Container display="flex" gap="1.56rem">
-            {commonTexts}
-          </Container>
-          <Switch onChange={handleThemeChange} />
-        </>
-      ) : (
-        <>
-          <Switch onChange={handleThemeChange} />
-          <Container display="flex" gap="1.56rem">
-            {commonTexts}
-          </Container>
-        </>
-      )}
-    </Container>
-  );
+  }, [toggleTheme, toggleDirection]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   return (
     <Container
@@ -110,10 +116,15 @@ function Navbar({
           scrolledPastTop ? 'scrolled-past-top' : ''
         }`}
       >
-        {commonSection}
+        <CommonSection
+          isRightToLeft={isRightToLeft}
+          handleThemeChange={handleThemeChange}
+          isDarkMode={isDarkMode}
+          animateTransition={animateTransition}
+        />
       </Container>
     </Container>
   );
-}
+};
 
 export default Navbar;
