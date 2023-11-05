@@ -1,4 +1,4 @@
-import { ProjectCardProps } from "../components/ProjectCard";
+import { ProjectCardProps } from "./models";
 
 export const projectData: ProjectCardProps[] = [
     {
