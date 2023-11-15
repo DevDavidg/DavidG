@@ -4,6 +4,7 @@ import Switch from '@/app/components/switch';
 import { addSpace } from '@/app/services/functions';
 import './styles.sass';
 import TextComponent from '@/app/components/TextComponent';
+import { useDevice } from '@/app/context/deviceContext';
 
 type NavbarProps = {
   readonly isDarkMode: boolean;
@@ -20,7 +21,6 @@ const TextLinks = ({ isDarkMode }: { isDarkMode: boolean }) => (
         key={text}
         href={`#${text}`}
         theme={isDarkMode ? 'text-d' : 'text-p'}
-        width="7.5rem"
         text={text}
       />
     ))}
@@ -37,33 +37,49 @@ const CommonSection = ({
   handleThemeChange: () => void;
   isDarkMode: boolean;
   animateTransition: boolean;
-}) => (
-  <Container
-    justify="space-between"
-    display="flex"
-    width="100%"
-    padding="1rem"
-    className={addSpace(
-      animateTransition ? 'transition-animation' : 'transition-animation-right'
-    )}
-  >
-    {isRightToLeft ? (
-      <>
-        <Container display="flex" gap="1.56rem">
-          <TextLinks isDarkMode={isDarkMode} />
-        </Container>
-        <Switch onChange={handleThemeChange} />
-      </>
-    ) : (
-      <>
-        <Switch onChange={handleThemeChange} />
-        <Container display="flex" gap="1.56rem">
-          <TextLinks isDarkMode={isDarkMode} />
-        </Container>
-      </>
-    )}
-  </Container>
-);
+}) => {
+  const device = useDevice();
+
+  return (
+    <Container
+      justify="space-between"
+      display="flex"
+      width="100%"
+      padding="1rem"
+      className={addSpace(
+        animateTransition
+          ? 'transition-animation'
+          : 'transition-animation-right'
+      )}
+    >
+      {isRightToLeft ? (
+        <>
+          <Container
+            display="flex"
+            justify="space-between"
+            width="25%"
+            gap={device === 'mobile' ? '5%' : '0'}
+          >
+            <TextLinks isDarkMode={isDarkMode} />
+          </Container>
+          <Switch onChange={handleThemeChange} />
+        </>
+      ) : (
+        <>
+          <Switch onChange={handleThemeChange} />
+          <Container
+            display="flex"
+            justify="space-between"
+            width="25%"
+            gap={device === 'mobile' ? '5%' : '0'}
+          >
+            <TextLinks isDarkMode={isDarkMode} />
+          </Container>
+        </>
+      )}
+    </Container>
+  );
+};
 
 const Navbar: React.FC<NavbarProps> = ({
   isDarkMode,

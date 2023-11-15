@@ -5,7 +5,6 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   addSpace,
-  getAlign,
   getDirection,
   getTextStyle,
   getTextTheme,
@@ -13,6 +12,7 @@ import {
 import theme from '@/app/stylesheets/theme.module.sass';
 import { useDevice } from '@/app/context/deviceContext';
 import TextComponent from '@/app/components/TextComponent';
+import { AlignType } from '@/app/services/models';
 
 const AboutSection = ({
   animateTransition,
@@ -24,7 +24,7 @@ const AboutSection = ({
   isDarkMode: boolean;
 }) => {
   const direction = getDirection(isRightToLeft);
-  const align = getAlign(isRightToLeft);
+
   const textTheme = getTextTheme(isDarkMode);
   const textStyle = getTextStyle(isRightToLeft);
   const device = useDevice();
@@ -47,14 +47,30 @@ const AboutSection = ({
         height="100%"
         display="flex"
         justify="center"
-        align={align}
+        align={
+          isRightToLeft
+            ? device === 'mobile'
+              ? 'center'
+              : 'start'
+            : device === 'mobile'
+            ? 'center'
+            : 'end'
+        }
         direction="column"
       >
         <Container
           display="flex"
           gap="1.87rem"
           direction="column"
-          align={align}
+          align={
+            isRightToLeft
+              ? device === 'mobile'
+                ? 'center'
+                : 'start'
+              : device === 'mobile'
+              ? 'center'
+              : 'end'
+          }
         >
           <TextComponent
             theme={textTheme}
@@ -63,7 +79,13 @@ const AboutSection = ({
             text={'Who I am?'}
             style={
               {
-                textAlign: isRightToLeft ? 'start' : 'end',
+                textAlign: isRightToLeft
+                  ? device === 'mobile'
+                    ? 'center'
+                    : 'start'
+                  : device === 'mobile'
+                  ? 'center'
+                  : 'end',
               } as React.CSSProperties
             }
           />
@@ -75,7 +97,13 @@ const AboutSection = ({
             style={
               {
                 ...textStyle,
-                textAlign: isRightToLeft ? 'start' : 'end',
+                textAlign: isRightToLeft
+                  ? device === 'mobile'
+                    ? 'center'
+                    : 'start'
+                  : device === 'mobile'
+                  ? 'center'
+                  : 'end',
               } as React.CSSProperties
             }
             size="xl"
@@ -91,7 +119,13 @@ const AboutSection = ({
             style={
               {
                 ...textStyle,
-                textAlign: isRightToLeft ? 'start' : 'end',
+                textAlign: isRightToLeft
+                  ? device === 'mobile'
+                    ? 'center'
+                    : 'start'
+                  : device === 'mobile'
+                  ? 'center'
+                  : 'end',
               } as React.CSSProperties
             }
             margin="0 0 40% 0"
@@ -108,7 +142,13 @@ const AboutSection = ({
             style={
               {
                 ...textStyle,
-                textAlign: isRightToLeft ? 'start' : 'end',
+                textAlign: isRightToLeft
+                  ? device === 'mobile'
+                    ? 'center'
+                    : 'start'
+                  : device === 'mobile'
+                  ? 'center'
+                  : 'end',
               } as React.CSSProperties
             }
           />

@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type DeviceType = 'mobile' | 'm-device' | 'desk';
 
-const DeviceContext = createContext<DeviceType | undefined>(undefined);
+export const DeviceContext = createContext<DeviceType | undefined>(undefined);
 
 export const DeviceProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,

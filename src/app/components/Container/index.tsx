@@ -25,7 +25,7 @@ const Container: React.FC<ContainerProps> = (props) => {
     </a>
   ) : (
     <div
-      style={style ?? props.styles}
+      style={style ?? props.style}
       className={
         `${props.className ?? ''}` +
         ['container', props.theme ? props.theme : null]

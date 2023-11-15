@@ -1,13 +1,30 @@
 type ThemeType = 'l' | 'd' | 'p';
+export type AlignType = 'start' | 'center' | 'end';
+type DisplayType = 'flex' | 'block';
+type DirectionType = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+type SizeType = 's' | 'sm' | 'm' | 'l' | 'xl' | `${number}${'px' | 'rem'}`;
+type WeightType = 'semibold' | 'light' | 'regular' | 'bold' | 'bolder';
 
 type DimensionProps = {
     width?: string;
     height?: string;
 };
 
-export interface CommonProps<T = ThemeType> extends DimensionProps {
-    theme?: T;
+type StyleProps = {
     style?: React.CSSProperties;
+    className?: string;
+    align?: AlignType;
+    justify?: AlignType | 'space-between' | 'space-around' | 'space-evenly';
+    wrap?: boolean;
+    display?: DisplayType;
+    direction?: DirectionType;
+    gap?: string;
+    padding?: string | React.CSSProperties;
+    margin?: string;
+};
+
+export interface CommonProps<T = ThemeType> extends DimensionProps, StyleProps {
+    theme?: T;
 }
 
 export interface BlobProps extends CommonProps {
@@ -17,14 +34,11 @@ export interface BlobProps extends CommonProps {
 
 export interface ButtonProps extends CommonProps {
     text?: string | React.JSX.Element;
-    theme?: 'l' | 'd' | 'p';
     outline?: boolean;
-    padding?: string;
     href?: string;
     fontSize?: string;
     onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
-    styles?: React.CSSProperties;
-    divRef?: React.Ref<HTMLDivElement>;
+    divRef?: React.RefObject<HTMLDivElement>;
     buttonRef?: React.Ref<HTMLButtonElement>;
     disabled?: boolean;
     ariaLabel?: string;
@@ -32,20 +46,12 @@ export interface ButtonProps extends CommonProps {
 
 export interface ContainerProps extends CommonProps {
     children: React.JSX.Element | React.JSX.Element[];
-    padding?: string | React.CSSProperties;
-    align?: 'start' | 'center' | 'end';
-    justify?: 'start' | 'center' | 'end' | 'space-between' | 'space-around' | 'space-evenly';
-    wrap?: boolean;
-    display?: 'flex' | 'block';
-    direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
-    className?: string;
     id?: string;
-    gap?: string;
     ref?: React.RefObject<HTMLDivElement>;
     href?: string;
     transform?: string;
     transition?: string;
-    styles?: React.CSSProperties;
+    onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 export interface FilteredCardProps {
@@ -97,9 +103,9 @@ export interface SwitchProps extends CommonProps<'p' | 'd'> {
 
 export interface TextProps extends CommonProps<'text-p' | 'text-d' | 'text-default'> {
     text?: string | React.JSX.Element;
-    size?: 's' | 'sm' | 'm' | 'l' | 'xl' | `${number}${'px' | 'rem'}`;
-    weight?: 'semibold' | 'light' | 'regular' | 'bold' | 'bolder';
-    align?: 'left' | 'center' | 'right';
+    size?: SizeType;
+    weight?: WeightType;
+    align?: AlignType;
     margin?: string;
     padding?: string;
     href?: string;
@@ -112,4 +118,19 @@ export interface ProjectsSectionProps {
     animateTransition: boolean;
     isRightToLeft: boolean;
     isDarkMode: boolean;
+}
+
+export interface HomeSectionProps {
+    isDarkMode: boolean;
+    isRightToLeft: boolean;
+    blobStyle: React.CSSProperties;
+    sphereStyle: React.CSSProperties;
+    currentTheme: boolean;
+}
+
+export interface DeviceSpecificStyles {
+    containerWidth: string;
+    containerHeight: string;
+    textMargin: string;
+    buttonGap: string;
 }

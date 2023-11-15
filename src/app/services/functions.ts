@@ -1,3 +1,5 @@
+import { useDevice } from "../context/deviceContext";
+
 export function simpleHash(str: string) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -10,7 +12,7 @@ export function simpleHash(str: string) {
 
 export const calculateHomeSectionTop = () =>
     typeof window !== 'undefined'
-        ? document.getElementById('home')?.getBoundingClientRect().top ?? 0
+        ? document.getElementById('Home')?.getBoundingClientRect().top ?? 0
         : 0;
 
 export const calculateCurrentTheme = (isDarkMode: boolean, homeSectionTop: number) => {
@@ -18,7 +20,7 @@ export const calculateCurrentTheme = (isDarkMode: boolean, homeSectionTop: numbe
         homeSectionTop >= 0 &&
         homeSectionTop <= window.innerHeight
         ? isDarkMode
-        : !isDarkMode;
+        : !isDarkMode
 };
 
 export const calculateSphereStyle = (scrollY: number) => ({

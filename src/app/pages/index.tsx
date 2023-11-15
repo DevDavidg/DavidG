@@ -1,7 +1,7 @@
 'use client';
-import React, { useEffect, useState, lazy, Suspense, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/app/modules/navbar';
-const HomeSection = lazy(() => import('@/app/pages/homeSection'));
+import HomeSection from '@/app/pages/homeSection';
 import AboutSection from '@/app/pages/aboutSection';
 import ProjectsSection from '@/app/pages/projectSection';
 import { useTheme } from '@/app/context/darkLightModeContext';
@@ -15,69 +15,19 @@ import {
   calculateTranslateXValue,
 } from '@/app/services/functions';
 import Container from '@/app/components/Container';
-import Spinner from '../components/Loading';
 
-const useScrollHandler = () => {
-  const [scrollY, setScrollY] = useState(0);
-  const [inAboutSection, setInAboutSection] = useState(false);
-
-  const handleScroll = useCallback(() => {
-    const aboutElement = document.getElementById('Home');
-    const workElement = document.getElementById('Work');
-    if (aboutElement && workElement) {
-      setScrollY(window.scrollY);
-      const isInAboutSection =
-        window.scrollY >= aboutElement.offsetTop &&
-        window.scrollY < workElement.offsetTop;
-      setInAboutSection(isInAboutSection);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [handleScroll]);
-
-  return { scrollY, inAboutSection };
-};
-
-const getDirection = (device: string, isRightToLeft: boolean) => {
-  if (device === 'mobile') return 'column-reverse';
-  return isRightToLeft ? 'row-reverse' : 'row';
-};
-
-const getStyles = (
-  inAboutSection: boolean,
-  scrollY: number,
-  stopSphereFollowScroll: number,
-  isDarkMode: boolean,
-  isRightToLeft: boolean
-) => {
-  let finalScrollY = 0;
-  if (inAboutSection) {
-    finalScrollY =
-      scrollY < stopSphereFollowScroll ? scrollY : stopSphereFollowScroll;
-  }
-
-  const translateXValue = inAboutSection
-    ? calculateTranslateXValue(isDarkMode, isRightToLeft, scrollY)
-    : 0;
-  const blobStyle = inAboutSection
-    ? calculateBlobStyle(finalScrollY, String(translateXValue))
-    : {};
-  const sphereStyle = inAboutSection ? calculateSphereStyle(finalScrollY) : {};
-
-  return { blobStyle, sphereStyle };
-};
-
-function Index(): React.JSX.Element {
+function Index() {
   const { isDarkMode, toggleTheme, isRightToLeft, toggleDirection } =
     useTheme();
   const device = useDevice();
   const [animateTransition, setAnimateTransition] = useState(true);
-  const { scrollY, inAboutSection } = useScrollHandler();
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     setAnimateTransition(true);
@@ -87,19 +37,33 @@ function Index(): React.JSX.Element {
 
   const homeSectionTop = calculateHomeSectionTop();
   const currentTheme = calculateCurrentTheme(isDarkMode, homeSectionTop);
+
   const stopSphereFollowScroll =
     typeof window !== 'undefined'
       ? homeSectionTop + window.innerHeight * 2 - 10
       : 0;
 
-  const { blobStyle, sphereStyle } = getStyles(
-    inAboutSection,
-    scrollY,
-    stopSphereFollowScroll,
-    isDarkMode,
-    isRightToLeft
+  const sphereStyle = calculateSphereStyle(
+    scrollY < stopSphereFollowScroll ? scrollY : stopSphereFollowScroll
   );
-  const direction = getDirection(device, isRightToLeft);
+  const translateXValue = calculateTranslateXValue(
+    isDarkMode,
+    isRightToLeft,
+    scrollY
+  );
+  const blobStyle = calculateBlobStyle(
+    scrollY < stopSphereFollowScroll ? scrollY : stopSphereFollowScroll,
+    translateXValue
+  );
+
+  const getDirection = () => {
+    if (device === 'mobile') {
+      return 'column-reverse';
+    }
+    return isRightToLeft ? 'row-reverse' : 'row';
+  };
+
+  const direction = getDirection();
 
   return (
     <>
@@ -133,29 +97,17 @@ function Index(): React.JSX.Element {
             )}
             direction={direction}
           >
-            <Suspense
-              fallback={
-                <Spinner
-                  loading={true}
-                  background={false}
-                  theme={isDarkMode ? 'd' : 'l'}
-                />
+            <HomeSection
+              isDarkMode={isDarkMode}
+              isRightToLeft={isRightToLeft}
+              blobStyle={
+                device === 'mobile' ? { top: 'auto', bottom: '0' } : blobStyle
               }
-            >
-              <HomeSection
-                isDarkMode={isDarkMode}
-                isRightToLeft={isRightToLeft}
-                blobStyle={
-                  device === 'mobile' ? { top: 'auto', bottom: '0' } : blobStyle
-                }
-                currentTheme={device === 'mobile' ? isDarkMode : currentTheme}
-                sphereStyle={
-                  device === 'mobile'
-                    ? { top: 'auto', bottom: '0' }
-                    : sphereStyle
-                }
-              />
-            </Suspense>
+              currentTheme={device === 'mobile' ? isDarkMode : currentTheme}
+              sphereStyle={
+                device === 'mobile' ? { top: 'auto', bottom: '0' } : sphereStyle
+              }
+            />
           </Container>
           <Container id="About" height="100vh">
             <AboutSection

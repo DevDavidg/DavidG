@@ -1,8 +1,9 @@
-import React, { Ref, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.sass';
 import { ButtonProps } from '@/app/services/models';
+import Container from '../Container';
 
-const useShowSkeleton = () => {
+const ButtonComponent: React.FC<ButtonProps> = React.memo((props) => {
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
@@ -10,111 +11,79 @@ const useShowSkeleton = () => {
     return () => clearTimeout(timeout);
   }, []);
 
-  return showSkeleton;
-};
+  const buildStyle = () => ({
+    '--width': props.width ?? '8rem',
+    '--padding': props.padding ?? 'auto',
+    '--font-size': props.fontSize ?? '1rem',
+    textDecoration: props.href ? 'none' : 'auto',
+    '--height': props.height ?? 'auto',
+    ...props.style,
+  });
 
-const getStyle = ({
-  width,
-  padding,
-  fontSize,
-  href,
-  height,
-  styles,
-}: ButtonProps) => ({
-  '--width': width ?? '8rem',
-  '--padding': padding ?? 'auto',
-  '--font-size': fontSize ?? '1rem',
-  textDecoration: href ? 'none' : 'auto',
-  '--height': height ?? 'auto',
-  ...styles,
-});
+  const style = buildStyle();
 
-const getCommonClasses = (
-  { theme, outline, disabled }: ButtonProps,
-  showSkeleton: boolean
-) =>
-  [
-    'btn',
-    theme,
-    outline && 'outlined',
-    !showSkeleton && disabled && 'disabledbtn',
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const buildCommonClasses = () =>
+    [
+      'btn',
+      props.theme,
+      props.outline && 'outlined',
+      !showSkeleton && props.disabled && 'disabledbtn',
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-const renderContent = ({ theme }: ButtonProps) => (
-  <div className={theme === 'd' ? 'btn__text--p' : 'btn__text--d'}></div>
-);
+  const commonClasses = buildCommonClasses();
 
-interface ButtonContentProps extends ButtonProps {
-  showSkeleton: boolean;
-}
-
-const ButtonContent: React.FC<ButtonContentProps> = ({
-  href,
-  buttonRef,
-  disabled,
-  showSkeleton,
-  ...rest
-}) => {
-  const commonProps = {
-    className: getCommonClasses(rest, showSkeleton),
-    style: getStyle(rest),
-  };
-
-  const content = rest.text ?? renderContent(rest);
-
-  if (href) {
-    return (
-      <a href={href} {...commonProps} aria-label={rest.ariaLabel ?? 'Link'}>
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <button
-      ref={buttonRef as Ref<HTMLButtonElement>}
-      disabled={disabled}
-      {...commonProps}
-    >
-      {content}
-    </button>
-  );
-};
-
-const ButtonComponent: React.FC<ButtonProps> = React.memo((props) => {
-  const showSkeleton = useShowSkeleton();
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      props.onClick?.(e);
-    }
-  };
-
-  return (
-    <div
-      style={{
-        width: props.width ?? '8rem',
-        position: 'relative',
-        height: props.height ?? 'auto',
-      }}
-      onClick={(e) => props.onClick?.(e)}
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
-      ref={props.divRef}
-    >
-      {showSkeleton ? (
+  const renderContent = () => {
+    if (showSkeleton) {
+      return (
         <span
           className="skeleton-animation"
           style={{ width: '100%', height: '100%' }}
         >
           {'\u00A0'}
         </span>
-      ) : (
-        <ButtonContent showSkeleton={showSkeleton} {...props} />
-      )}
-    </div>
+      );
+    }
+
+    return props.href ? (
+      <a href={props.href} className={commonClasses} style={style}>
+        {props.text ?? (
+          <div
+            className={props.theme === 'd' ? 'btn__text--p' : 'btn__text--d'}
+          ></div>
+        )}
+      </a>
+    ) : (
+      <button
+        className={commonClasses}
+        style={style}
+        ref={props.buttonRef}
+        disabled={props.disabled}
+      >
+        {props.text ?? (
+          <div
+            className={props.theme === 'd' ? 'btn__text--p' : 'btn__text--d'}
+          ></div>
+        )}
+      </button>
+    );
+  };
+
+  return (
+    <Container
+      width={props.width}
+      style={{
+        width: props.width ?? '8rem',
+        ...style,
+        position: 'relative',
+        height: props.height ?? 'auto',
+      }}
+      onClick={props.onClick}
+      ref={props.divRef}
+    >
+      {renderContent()}
+    </Container>
   );
 });
 

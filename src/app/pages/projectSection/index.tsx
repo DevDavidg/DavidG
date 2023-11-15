@@ -65,6 +65,7 @@ const ProjectsSection = ({
         direction="column"
         height={device === 'mobile' ? 'auto' : '100vh'}
         id="Project"
+        padding={'5rem 0 0 0'}
         className={addSpace(
           animateTransition
             ? 'transition-animation'
