@@ -72,7 +72,7 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
               text={l}
               width="fit-content"
               theme={!isDarkMode ? 'd' : 'l'}
-              styles={{
+              style={{
                 borderRadius: '0.3rem',
                 whiteSpace: 'nowrap',
                 ...(selLang === l && {
