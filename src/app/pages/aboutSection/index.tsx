@@ -12,7 +12,6 @@ import {
 import theme from '@/app/stylesheets/theme.module.sass';
 import { useDevice } from '@/app/context/deviceContext';
 import TextComponent from '@/app/components/TextComponent';
-import { AlignType } from '@/app/services/models';
 
 const AboutSection = ({
   animateTransition,

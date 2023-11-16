@@ -60,6 +60,7 @@ const ButtonComponent: React.FC<ButtonProps> = React.memo((props) => {
         style={style}
         ref={props.buttonRef}
         disabled={props.disabled}
+        onClick={props.onClick}
       >
         {props.text ?? (
           <div
@@ -70,21 +71,7 @@ const ButtonComponent: React.FC<ButtonProps> = React.memo((props) => {
     );
   };
 
-  return (
-    <Container
-      width={props.width}
-      style={{
-        width: props.width ?? '8rem',
-        ...style,
-        position: 'relative',
-        height: props.height ?? 'auto',
-      }}
-      onClick={props.onClick}
-      ref={props.divRef}
-    >
-      {renderContent()}
-    </Container>
-  );
+  return renderContent();
 });
 
 ButtonComponent.displayName = 'ButtonComponent';

@@ -1,5 +1,5 @@
 type ThemeType = 'l' | 'd' | 'p';
-export type AlignType = 'start' | 'center' | 'end';
+type AlignType = 'start' | 'center' | 'end';
 type DisplayType = 'flex' | 'block';
 type DirectionType = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 type SizeType = 's' | 'sm' | 'm' | 'l' | 'xl' | `${number}${'px' | 'rem'}`;
@@ -37,7 +37,7 @@ export interface ButtonProps extends CommonProps {
     outline?: boolean;
     href?: string;
     fontSize?: string;
-    onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     divRef?: React.RefObject<HTMLDivElement>;
     buttonRef?: React.Ref<HTMLButtonElement>;
     disabled?: boolean;
