@@ -1,16 +1,16 @@
-type ThemeType = 'l' | 'd' | 'p';
-type AlignType = 'start' | 'center' | 'end';
-type DisplayType = 'flex' | 'block';
-type DirectionType = 'row' | 'column' | 'row-reverse' | 'column-reverse';
-type SizeType = 's' | 'sm' | 'm' | 'l' | 'xl' | `${number}${'px' | 'rem'}`;
-type WeightType = 'semibold' | 'light' | 'regular' | 'bold' | 'bolder';
+export type ThemeType = 'l' | 'd' | 'p';
+export type AlignType = 'start' | 'center' | 'end';
+export type DisplayType = 'flex' | 'block';
+export type DirectionType = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+export type SizeType = 's' | 'sm' | 'm' | 'l' | 'xl' | `${number}${'px' | 'rem'}`;
+export type WeightType = 'semibold' | 'light' | 'regular' | 'bold' | 'bolder';
 
 type DimensionProps = {
     width?: string;
     height?: string;
 };
 
-type StyleProps = {
+export type StyleProps = {
     style?: React.CSSProperties;
     className?: string;
     align?: AlignType;

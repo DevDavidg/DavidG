@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './index.sass';
 import { ButtonProps } from '@/app/services/models';
-import Container from '../Container';
 
 const ButtonComponent: React.FC<ButtonProps> = React.memo((props) => {
   const [showSkeleton, setShowSkeleton] = useState(true);

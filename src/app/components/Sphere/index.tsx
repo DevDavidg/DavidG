@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useEffect, useState } from 'react';
 import './styles.scss';
 import { ISphereProps } from '@/app/services/models';
 
-function Sphere(props: ISphereProps) {
+function Sphere(props: Readonly<ISphereProps>) {
   const [isVisible, setIsVisible] = useState(false);
   const sphereRef = useRef<HTMLDivElement | null>(null);
 

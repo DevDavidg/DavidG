@@ -13,6 +13,27 @@ import theme from '@/app/stylesheets/theme.module.sass';
 import { useDevice } from '@/app/context/deviceContext';
 import TextComponent from '@/app/components/TextComponent';
 
+const getAlignValue = (isRightToLeft: boolean, device: string) => {
+  if (device === 'mobile') {
+    return 'center';
+  }
+  return isRightToLeft ? 'start' : 'end';
+};
+
+const getTextAlignValue = (
+  isRightToLeft: boolean,
+  device: string,
+  isSpecialCase: boolean = false
+) => {
+  if (device === 'mobile') {
+    return 'center';
+  }
+  if (isSpecialCase) {
+    return 'justify';
+  }
+  return isRightToLeft ? 'start' : 'end';
+};
+
 const AboutSection = ({
   animateTransition,
   isRightToLeft,
@@ -23,7 +44,6 @@ const AboutSection = ({
   isDarkMode: boolean;
 }) => {
   const direction = getDirection(isRightToLeft);
-
   const textTheme = getTextTheme(isDarkMode);
   const textStyle = getTextStyle(isRightToLeft);
   const device = useDevice();
@@ -46,65 +66,34 @@ const AboutSection = ({
         height="100%"
         display="flex"
         justify="center"
-        align={
-          isRightToLeft
-            ? device === 'mobile'
-              ? 'center'
-              : 'start'
-            : device === 'mobile'
-            ? 'center'
-            : 'end'
-        }
+        align={getAlignValue(isRightToLeft, device)}
         direction="column"
       >
         <Container
           display="flex"
           gap="1.87rem"
           direction="column"
-          align={
-            isRightToLeft
-              ? device === 'mobile'
-                ? 'center'
-                : 'start'
-              : device === 'mobile'
-              ? 'center'
-              : 'end'
-          }
+          align={getAlignValue(isRightToLeft, device)}
         >
           <TextComponent
             theme={textTheme}
             width="7.68rem"
             height="1.93rem"
             text={'Who I am?'}
-            style={
-              {
-                textAlign: isRightToLeft
-                  ? device === 'mobile'
-                    ? 'center'
-                    : 'start'
-                  : device === 'mobile'
-                  ? 'center'
-                  : 'end',
-              } as React.CSSProperties
-            }
+            style={{
+              ...textStyle,
+              textAlign: getTextAlignValue(isRightToLeft, device),
+            }}
           />
           <TextComponent
             theme={textTheme}
             width="17.125rem"
             height="11.5rem"
             text={isRightToLeft ? 'I am a developer' : 'I am a designer'}
-            style={
-              {
-                ...textStyle,
-                textAlign: isRightToLeft
-                  ? device === 'mobile'
-                    ? 'center'
-                    : 'start'
-                  : device === 'mobile'
-                  ? 'center'
-                  : 'end',
-              } as React.CSSProperties
-            }
+            style={{
+              ...textStyle,
+              textAlign: getTextAlignValue(isRightToLeft, device),
+            }}
             size="xl"
             weight="bold"
           />
@@ -115,18 +104,10 @@ const AboutSection = ({
             text={
               'My name is David, I am currently 21 years old, I live in Almagro CABA, Buenos Aires, Argentina'
             }
-            style={
-              {
-                ...textStyle,
-                textAlign: isRightToLeft
-                  ? device === 'mobile'
-                    ? 'center'
-                    : 'start'
-                  : device === 'mobile'
-                  ? 'center'
-                  : 'end',
-              } as React.CSSProperties
-            }
+            style={{
+              ...textStyle,
+              textAlign: getTextAlignValue(isRightToLeft, device),
+            }}
             margin="0 0 40% 0"
           />
         </Container>
@@ -138,18 +119,10 @@ const AboutSection = ({
             height="1.93rem"
             text={'Contact'}
             size="sm"
-            style={
-              {
-                ...textStyle,
-                textAlign: isRightToLeft
-                  ? device === 'mobile'
-                    ? 'center'
-                    : 'start'
-                  : device === 'mobile'
-                  ? 'center'
-                  : 'end',
-              } as React.CSSProperties
-            }
+            style={{
+              ...textStyle,
+              textAlign: getTextAlignValue(isRightToLeft, device),
+            }}
           />
         </Container>
         <Container display="flex" gap="1.43rem" direction="column">
@@ -169,7 +142,7 @@ const AboutSection = ({
               width="4rem"
               height="1.56rem"
               text={'Linkedin'}
-              style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
+              style={{ textAlign: getTextAlignValue(isRightToLeft, device) }}
             />
           </Container>
           <Container
@@ -177,6 +150,7 @@ const AboutSection = ({
             gap="0.62rem"
             align="center"
             direction={direction}
+            href="https://github.com/DevDavidg"
           >
             <FontAwesomeIcon
               icon={faGithub}
@@ -187,8 +161,7 @@ const AboutSection = ({
               width="3.43rem"
               height="1.56rem"
               text={'Github'}
-              style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
-              href="www.github.com"
+              style={{ textAlign: getTextAlignValue(isRightToLeft, device) }}
             />
           </Container>
           <Container
@@ -207,7 +180,7 @@ const AboutSection = ({
               width="3.43rem"
               height="1.56rem"
               text={'Email'}
-              style={{ textAlign: isRightToLeft ? 'start' : 'end' }}
+              style={{ textAlign: getTextAlignValue(isRightToLeft, device) }}
             />
           </Container>
         </Container>
@@ -215,4 +188,5 @@ const AboutSection = ({
     </Container>
   );
 };
+
 export default AboutSection;

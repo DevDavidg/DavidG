@@ -17,7 +17,7 @@ const ProjectsSection = ({
   const [error, setError] = useState<Error | null>(null);
   const device = useDevice();
 
-  const handleFilter = useCallback((lang: any) => {
+  const handleFilter = useCallback((lang: string) => {
     setFilter(lang);
   }, []);
 
@@ -85,6 +85,7 @@ const ProjectsSection = ({
                   'HTML',
                   'CSS',
                   'JS',
+                  'CoffeeScript',
                   'TS',
                   'Django',
                   'DRF',
@@ -93,7 +94,7 @@ const ProjectsSection = ({
                   'Less',
                   'Preact',
                   'Pug',
-                  'Haml',
+                  'HAML',
                   'Next',
                   'StyledComponents',
                   'Tailwind',

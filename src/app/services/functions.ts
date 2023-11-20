@@ -1,4 +1,3 @@
-import { useDevice } from "../context/deviceContext";
 
 export function simpleHash(str: string) {
     let hash = 0;

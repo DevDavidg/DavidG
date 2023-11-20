@@ -35,7 +35,13 @@ const Switch: React.FC<SwitchProps> = React.memo(function Switch({
   const classNames = `switch ${theme} ${checked ? 'checked' : ''}`;
 
   return (
-    <div className={classNames} onClick={toggle} style={style}>
+    <div
+      className={classNames}
+      onClick={toggle}
+      onKeyDown={toggle}
+      style={style}
+      tabIndex={0}
+    >
       <div className="l"></div>
       {showSkeleton ? (
         <div className="skeleton-animation">{'\u00A0'}</div>

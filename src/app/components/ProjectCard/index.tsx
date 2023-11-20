@@ -58,7 +58,6 @@ const RenderIcon = React.memo<RenderIconProps>(
 );
 
 RenderIcon.displayName = 'RenderIcon';
-
 const ProjectCard: React.FC<ProjectCardProps> = React.memo(
   ({
     gif,
@@ -71,21 +70,9 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
     cardLang,
     filter,
   }) => {
-    const parsedIcons = useMemo(
-      () =>
-        typeof icons === 'string'
-          ? JSON.parse(icons.replace(/'/g, '"'))
-          : icons,
-      [icons]
-    );
+    const parsedIcons = useMemo(() => parseIcons(icons), [icons]);
 
-    const parsedCardLang = useMemo(
-      () =>
-        typeof cardLang === 'string'
-          ? JSON.parse(cardLang.replace(/'/g, '"'))
-          : cardLang,
-      [cardLang]
-    );
+    const parsedCardLang = useMemo(() => parseCardLang(cardLang), [cardLang]);
 
     const [isHovered, setIsHovered] = useState(false);
     const [isRendered, setIsRendered] = useState(true);
@@ -98,16 +85,7 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
     const device = useDevice();
 
     useEffect(() => {
-      const handleFilterChange = () => {
-        if (filter && !parsedCardLang.includes(filter)) {
-          setAnimClass('bounceOut');
-          setTimeout(() => setIsRendered(false), 400);
-        } else {
-          setIsRendered(true);
-          setAnimClass('bounceIn');
-        }
-      };
-      handleFilterChange();
+      handleFilterChange(filter, parsedCardLang, setAnimClass, setIsRendered);
     }, [filter, parsedCardLang]);
 
     if (!isRendered) return null;
@@ -204,6 +182,33 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
     );
   }
 );
+
+function parseIcons(icons: string | string[]) {
+  return typeof icons === 'string'
+    ? JSON.parse(icons.replace(/'/g, '"'))
+    : icons;
+}
+
+function parseCardLang(cardLang: string | string[]) {
+  return typeof cardLang === 'string'
+    ? JSON.parse(cardLang.replace(/'/g, '"'))
+    : cardLang;
+}
+
+function handleFilterChange(
+  filter: string | undefined,
+  parsedCardLang: string | string[],
+  setAnimClass: React.Dispatch<React.SetStateAction<string>>,
+  setIsRendered: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  if (filter && !parsedCardLang.includes(filter)) {
+    setAnimClass('bounceOut');
+    setTimeout(() => setIsRendered(false), 400);
+  } else {
+    setIsRendered(true);
+    setAnimClass('bounceIn');
+  }
+}
 
 ProjectCard.displayName = 'ProjectCard';
 

@@ -1,8 +1,8 @@
 import { ContainerProps } from '@/app/services/models';
 import './index.sass';
 
-const Container: React.FC<ContainerProps> = (props) => {
-  const style = {
+const createStyle = (props: ContainerProps) =>
+  ({
     '--width': props.width ?? 'auto',
     '--height': props.height ?? 'auto',
     '--align': props.align ?? '',
@@ -14,27 +14,25 @@ const Container: React.FC<ContainerProps> = (props) => {
     flexWrap: props.wrap ? 'wrap' : '',
     transform: props.transform ?? '',
     transition: props.transition ?? '',
-  } as React.CSSProperties;
+  } as React.CSSProperties);
+
+const createClassName = (props: ContainerProps) => {
+  const classes = ['container'];
+  if (props.className) classes.push(props.className);
+  if (props.theme) classes.push(props.theme);
+  return classes.join(' ');
+};
+
+const Container: React.FC<ContainerProps> = (props) => {
+  const style = createStyle(props);
+  const className = createClassName(props);
+
   return props.href ? (
-    <a
-      href={props.href}
-      className={`container ${props.className ?? ''}`}
-      style={style}
-    >
+    <a href={props.href} className={className} style={style}>
       {props.children}
     </a>
   ) : (
-    <div
-      style={style ?? props.style}
-      className={
-        `${props.className ?? ''}` +
-        ['container', props.theme ? props.theme : null]
-          .filter((p) => p)
-          .join(' ')
-      }
-      id={props.id}
-      ref={props.ref}
-    >
+    <div style={style} className={className} id={props.id} ref={props.ref}>
       {props.children}
     </div>
   );
