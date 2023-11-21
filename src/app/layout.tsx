@@ -3,16 +3,16 @@ import '@/app/globals.sass';
 import '@/app/stylesheets/GlobalStyles.scss';
 
 export const metadata = {
-  title: 'DevDavidG',
-  description: 'David Guillen, Frontend Developer UX / UI Designer',
-  keywords: 'Next.js, TypeScript, Sass, React, Styled Components',
+  title: 'DevDavidG - Frontend Developer & UX/UI Designer',
+  description:
+    'David Guillen, Frontend Developer and UX/UI Designer. Specializing in Next.js, TypeScript, and React. Creating user-friendly, optimized web experiences.',
+  keywords:
+    'Next.js, TypeScript, Sass, React, Styled Components, Web Development, Programming, Developer, UI Design, UX Design',
 };
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <Head>

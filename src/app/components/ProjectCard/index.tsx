@@ -167,15 +167,17 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
               width="100%"
               ariaLabel="Demo"
             />
-            <Button
-              theme={theme}
-              href={github}
-              text={github === '' ? 'Private' : 'Github'}
-              fontSize="1.2rem"
-              width="100%"
-              disabled={github === ''}
-              ariaLabel="Github"
-            />
+            {theme === 'l' && (
+              <Button
+                theme={theme}
+                href={github}
+                text={github === '' ? 'Private' : 'Github'}
+                fontSize="1.2rem"
+                width="100%"
+                disabled={github === ''}
+                ariaLabel="Github"
+              />
+            )}
           </div>
         </Container>
       </div>
