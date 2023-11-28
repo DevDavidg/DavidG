@@ -142,7 +142,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({
             width="12.5rem"
             height="3.43rem"
             text="Projects"
-            href="#Projects"
+            href="#Work"
             fontSize="1.5rem"
             ariaLabel="Projects"
           />
