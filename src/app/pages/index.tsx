@@ -116,7 +116,7 @@ function Index() {
               isDarkMode={isDarkMode}
             />
           </Container>
-          <Container id="Work" height="100vh">
+          <Container id="Work" height="auto">
             <ProjectsSection
               isRightToLeft={isRightToLeft}
               isDarkMode={isDarkMode}
