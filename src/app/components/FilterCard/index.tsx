@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import Button from '../ButtonComponent';
-import { useTheme } from '@/app/context/darkLightModeContext';
-import C from '../Container';
-import { simpleHash } from '@/app/services/functions';
-import { useDevice } from '@/app/context/deviceContext';
-import { FilteredCardProps } from '@/app/services/models';
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import Button from "../ButtonComponent";
+import { useTheme } from "@/app/context/darkLightModeContext";
+import C from "../Container";
+import { simpleHash } from "@/app/services/functions";
+import { useDevice } from "@/app/context/deviceContext";
+import { FilteredCardProps } from "@/app/services/models";
 
 const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
   const device = useDevice();
@@ -31,15 +31,15 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
       const buttonWidth = buttonRefs.current[0]?.offsetWidth ?? 0;
       containerRef.current.style.width = isLangLongEnough
         ? `${buttonWidth * 6}px`
-        : 'auto';
+        : "auto";
       setTranslateX(isLangLongEnough ? calculateTranslateX() : 0);
     }
   }, [lang, currentSlide, calculateTranslateX, device]);
 
-  const changeSlide = (direction: 'prev' | 'next') => {
+  const changeSlide = (direction: "prev" | "next") => {
     if (lang.length >= 6) {
       setCurrentSlide((prevSlide) =>
-        direction === 'next'
+        direction === "next"
           ? (prevSlide + 1) % lang.length
           : (prevSlide - 1 + lang.length) % lang.length
       );
@@ -50,20 +50,22 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
     <C display="flex" direction="column" align="center">
       <div
         ref={containerRef}
-        style={{ overflow: lang.length >= 6 ? 'hidden' : 'visible' }}
+        style={{ overflow: lang.length >= 6 ? "hidden" : "visible" }}
       >
         <div
           style={{
-            display: 'flex',
-            gap: '1rem',
+            display: "flex",
+            gap: "1rem",
             transform:
-              lang.length >= 6 ? `translateX(-${translateX}px)` : 'none',
-            transition: 'transform 0.5s',
+              lang.length >= 6 ? `translateX(-${translateX}px)` : "none",
+            transition: "transform 0.5s",
           }}
         >
           {lang.map((l, index) => (
             <Button
-              buttonRef={(ref) => (buttonRefs.current[index] = ref)}
+              buttonRef={(ref) => {
+                buttonRefs.current[index] = ref;
+              }}
               key={l}
               onClick={() => {
                 setSelLang(l);
@@ -71,14 +73,14 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
               }}
               text={l}
               width="fit-content"
-              theme={!isDarkMode ? 'd' : 'l'}
+              theme={!isDarkMode ? "d" : "l"}
               style={{
-                borderRadius: '0.3rem',
-                whiteSpace: 'nowrap',
+                borderRadius: "0.3rem",
+                whiteSpace: "nowrap",
                 ...(selLang === l && {
-                  border: `1px solid ${isDarkMode ? 'black' : 'white'}`,
-                  background: `${isDarkMode ? 'white' : 'black'}`,
-                  color: `${isDarkMode ? 'black' : 'white'}`,
+                  border: `1px solid ${isDarkMode ? "black" : "white"}`,
+                  background: `${isDarkMode ? "white" : "black"}`,
+                  color: `${isDarkMode ? "black" : "white"}`,
                 }),
               }}
               padding="0.6rem"
@@ -87,40 +89,40 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
           ))}
         </div>
       </div>
-      {device === 'mobile' || lang.length >= 6 ? (
+      {device === "mobile" || lang.length >= 6 ? (
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '1rem',
-            marginTop: '1rem',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1rem",
+            marginTop: "1rem",
           }}
         >
           <button
-            onClick={() => changeSlide('prev')}
+            onClick={() => changeSlide("prev")}
             style={{
-              background: 'transparent',
-              border: 'none',
-              fontSize: '2rem',
-              cursor: 'pointer',
+              background: "transparent",
+              border: "none",
+              fontSize: "2rem",
+              cursor: "pointer",
             }}
             aria-label="previous slide"
           >
             &lt;
           </button>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
             {new Array(Math.ceil(lang.length / 6)).fill(0).map((_, idx) => (
               <button
                 key={simpleHash(idx.toString())}
                 style={{
-                  width: '0.7rem',
-                  height: '0.7rem',
-                  borderRadius: '50%',
+                  width: "0.7rem",
+                  height: "0.7rem",
+                  borderRadius: "50%",
                   background:
-                    idx === Math.floor(currentSlide / 6) ? 'black' : 'grey',
-                  cursor: 'pointer',
-                  border: 'none',
+                    idx === Math.floor(currentSlide / 6) ? "black" : "grey",
+                  cursor: "pointer",
+                  border: "none",
                 }}
                 onClick={() => setCurrentSlide(idx * 6)}
                 aria-label={`slide ${idx + 1}`}
@@ -128,12 +130,12 @@ const FilterCard: React.FC<FilteredCardProps> = ({ onFilter, lang }) => {
             ))}
           </div>
           <button
-            onClick={() => changeSlide('next')}
+            onClick={() => changeSlide("next")}
             style={{
-              background: 'transparent',
-              border: 'none',
-              fontSize: '2rem',
-              cursor: 'pointer',
+              background: "transparent",
+              border: "none",
+              fontSize: "2rem",
+              cursor: "pointer",
             }}
             aria-label="next slide"
           >
